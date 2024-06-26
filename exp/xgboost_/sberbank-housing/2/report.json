@@ -1,0 +1,58 @@
+{
+    "function": "bin.xgboost_.main",
+    "gpus": [
+        "NVIDIA GeForce RTX 2080 Ti"
+    ],
+    "config": {
+        "seed": 0,
+        "data": {
+            "seed": 0,
+            "cache": true,
+            "path": ":data/sberbank-housing",
+            "cat_policy": "ordinal",
+            "split": "random-1"
+        },
+        "model": {
+            "booster": "gbtree",
+            "n_estimators": 4000,
+            "early_stopping_rounds": 3999,
+            "n_jobs": 1,
+            "tree_method": "hist",
+            "device": "cuda",
+            "use_label_encoder": false,
+            "colsample_bytree": 0.8192220466765512,
+            "gamma": 0.0015476918478467441,
+            "lambda": 6.846129466325879,
+            "learning_rate": 0.014086527530531896,
+            "max_depth": 6,
+            "min_child_weight": 0.876490673110794,
+            "subsample": 0.8447209720231161
+        },
+        "fit": {
+            "verbose": true
+        }
+    },
+    "prediction_type": "labels",
+    "time": "0:00:32.778988",
+    "best_iteration": 756,
+    "metrics": {
+        "train": {
+            "rmse": 0.15471996173873392,
+            "mae": 0.0833374485373497,
+            "r2": 0.84198805069203,
+            "score": -0.15471996173873392
+        },
+        "val": {
+            "rmse": 0.23693874384665017,
+            "mae": 0.12239689379930496,
+            "r2": 0.6216744194601728,
+            "score": -0.23693874384665017
+        },
+        "test": {
+            "rmse": 0.22709342802136978,
+            "mae": 0.11732123792171478,
+            "r2": 0.65236214987035,
+            "score": -0.22709342802136978
+        }
+    }
+}

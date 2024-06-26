@@ -1,0 +1,66 @@
+{
+    "function": "bin.tabr.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 8,
+        "patience": 16,
+        "n_epochs": -1,
+        "causal": false,
+        "batch_size": 256,
+        "context_size": 96,
+        "model": {
+            "d_main": 256,
+            "context_dropout": 0.20871452834454793,
+            "d_multiplier": 2.0,
+            "encoder_n_blocks": 0,
+            "predictor_n_blocks": 1,
+            "mixer_normalization": "auto",
+            "dropout0": 0.2930768928408447,
+            "dropout1": 0.0,
+            "normalization": "LayerNorm",
+            "activation": "ReLU"
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 5.5978560047031827e-05,
+            "weight_decay": 2.314547621852438e-05
+        },
+        "data": {
+            "seed": 0,
+            "path": ":data/sberbank-housing",
+            "cache": true,
+            "split": "sliding-window-1",
+            "cat_policy": "ordinal",
+            "num_policy": "noisy-quantile"
+        }
+    },
+    "n_parameters": 732417,
+    "prediction_type": "labels",
+    "epoch_size": 41,
+    "metrics": {
+        "train": {
+            "rmse": 0.22623817480123537,
+            "mae": 0.11492469906806946,
+            "r2": 0.6550165127773473,
+            "score": -0.22623817480123537
+        },
+        "val": {
+            "rmse": 0.26687718211852,
+            "mae": 0.15970444679260254,
+            "r2": 0.5124822732496044,
+            "score": -0.26687718211852
+        },
+        "test": {
+            "rmse": 0.2560105204953677,
+            "mae": 0.15644361078739166,
+            "r2": 0.5655037474127149,
+            "score": -0.2560105204953677
+        }
+    },
+    "best_step": 328,
+    "time": "0:00:11.220720",
+    "chunk_size": null,
+    "eval_batch_size": 32768
+}

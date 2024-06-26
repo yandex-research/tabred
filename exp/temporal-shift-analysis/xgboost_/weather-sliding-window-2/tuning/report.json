@@ -1,0 +1,140 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "sliding-window-2"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.5277666964731265,
+                "gamma": 0.015276454617248563,
+                "lambda": 4.829302043079928,
+                "learning_rate": 0.013938524169813444,
+                "max_depth": 11,
+                "min_child_weight": 44.5772110662212,
+                "subsample": 0.956194481781763
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "sliding-window-2"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:01:33.758314",
+        "best_iteration": 3999,
+        "metrics": {
+            "train": {
+                "rmse": 0.6765673921333327,
+                "mae": 0.49943599104881287,
+                "r2": 0.9709854487856331,
+                "score": -0.6765673921333327
+            },
+            "val": {
+                "rmse": 1.5750706641678627,
+                "mae": 1.1563342809677124,
+                "r2": 0.8431559276125163,
+                "score": -1.5750706641678627
+            },
+            "test": {
+                "rmse": 1.536135683826981,
+                "mae": 1.1350635290145874,
+                "r2": 0.8408862559140475,
+                "score": -1.536135683826981
+            }
+        },
+        "trial_id": 194,
+        "tuning_time": "4:53:26.402626"
+    },
+    "time": "5:00:26.875170",
+    "n_completed_trials": 200,
+    "continuations": [
+        115
+    ]
+}

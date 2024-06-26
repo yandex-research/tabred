@@ -1,0 +1,67 @@
+seed = 0
+function = "bin.nn_baselines.main"
+n_trials = 100
+
+[space]
+seed = 0
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[space.model.backbone]
+type = "DCNv2"
+d_cat_embedding = [
+    "_tune_",
+    "int-power-of-two",
+    1,
+    5,
+]
+d_deep = [
+    "_tune_",
+    "int-power-of-two",
+    7,
+    11,
+]
+n_cross_layers = [
+    "_tune_",
+    "int",
+    1,
+    4,
+]
+n_deep_layers = [
+    "_tune_",
+    "int",
+    1,
+    4,
+]
+dropout_p = [
+    "_tune_",
+    "?uniform",
+    0.0,
+    0.0,
+    0.5,
+]
+nonlin_cross = false
+
+[space.optimizer]
+type = "AdamW"
+lr = [
+    "_tune_",
+    "loguniform",
+    1e-05,
+    0.001,
+]
+weight_decay = [
+    "_tune_",
+    "loguniform",
+    1e-06,
+    0.001,
+]
+
+[space.data]
+seed = 0
+path = ":data/maps-routing"
+cache = true
+split = "default"
+cat_policy = "ordinal"
+num_policy = "identity"

@@ -1,0 +1,141 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.tabr.main",
+        "n_trials": 25,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 1024,
+            "context_size": 96,
+            "model": {
+                "d_main": [
+                    "_tune_",
+                    "int-power-of-two",
+                    7,
+                    10
+                ],
+                "context_dropout": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "random-1",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.tabr.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 1024,
+            "context_size": 96,
+            "model": {
+                "d_main": 128,
+                "context_dropout": 0.509721747238398,
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": 0.32851532791172744,
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 0.00012133633488045233,
+                "weight_decay": 1.520229392696181e-06
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "random-1",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        },
+        "n_parameters": 174977,
+        "prediction_type": "labels",
+        "epoch_size": 157,
+        "metrics": {
+            "train": {
+                "rmse": 0.44915442628171076,
+                "mae": 0.34999948740005493,
+                "r2": 0.5382351413764501,
+                "score": -0.44915442628171076
+            },
+            "val": {
+                "rmse": 0.45847961591171993,
+                "mae": 0.3567572236061096,
+                "r2": 0.5139459412392413,
+                "score": -0.45847961591171993
+            },
+            "test": {
+                "rmse": 0.4562441087368556,
+                "mae": 0.35570913553237915,
+                "r2": 0.5230509732439803,
+                "score": -0.4562441087368556
+            }
+        },
+        "best_step": 3454,
+        "time": "0:02:11.461013",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 24,
+        "tuning_time": "2:34:42.776858"
+    },
+    "time": "2:34:42.895025",
+    "n_completed_trials": 25
+}

@@ -1,0 +1,145 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.tabr.main",
+        "n_trials": 25,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 1024,
+            "context_size": 96,
+            "model": {
+                "d_main": [
+                    "_tune_",
+                    "int-power-of-two",
+                    7,
+                    10
+                ],
+                "context_dropout": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "random-1",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.tabr.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 1024,
+            "context_size": 96,
+            "model": {
+                "d_main": 256,
+                "context_dropout": 0.5843625536265948,
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": 0.03657762674604659,
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 2.8260946187629726e-05,
+                "weight_decay": 7.986969106723651e-06
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "random-1",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        },
+        "n_parameters": 849409,
+        "prediction_type": "labels",
+        "epoch_size": 99,
+        "metrics": {
+            "train": {
+                "rmse": 0.15494563931840513,
+                "mae": 0.11765969544649124,
+                "r2": 0.8310245135496693,
+                "score": -0.15494563931840513
+            },
+            "val": {
+                "rmse": 0.1637022456849777,
+                "mae": 0.12395939230918884,
+                "r2": 0.8107858135705741,
+                "score": -0.1637022456849777
+            },
+            "test": {
+                "rmse": 0.16382372032978734,
+                "mae": 0.124174565076828,
+                "r2": 0.8106404899374011,
+                "score": -0.16382372032978734
+            }
+        },
+        "best_step": 1980,
+        "time": "0:02:47.276215",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 12,
+        "tuning_time": "0:53:14.060855"
+    },
+    "time": "1:29:13.181787",
+    "n_completed_trials": 25,
+    "continuations": [
+        1,
+        7
+    ]
+}

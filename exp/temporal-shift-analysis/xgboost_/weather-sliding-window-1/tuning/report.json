@@ -1,0 +1,143 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "sliding-window-1"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.5617295820015251,
+                "gamma": 0,
+                "lambda": 0.0,
+                "learning_rate": 0.010361775571983277,
+                "max_depth": 10,
+                "min_child_weight": 0.012683888958062956,
+                "subsample": 0.9683129815933444
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "sliding-window-1"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:01:44.156129",
+        "best_iteration": 3999,
+        "metrics": {
+            "train": {
+                "rmse": 0.6331089879352533,
+                "mae": 0.4901990592479706,
+                "r2": 0.9733428838905496,
+                "score": -0.6331089879352533
+            },
+            "val": {
+                "rmse": 1.567564652492216,
+                "mae": 1.129605770111084,
+                "r2": 0.8448693440074723,
+                "score": -1.567564652492216
+            },
+            "test": {
+                "rmse": 1.607148417205881,
+                "mae": 1.1746934652328491,
+                "r2": 0.8367023332244066,
+                "score": -1.607148417205881
+            }
+        },
+        "trial_id": 184,
+        "tuning_time": "6:41:17.246923"
+    },
+    "time": "7:07:34.353691",
+    "n_completed_trials": 200,
+    "continuations": [
+        52,
+        62,
+        111,
+        167
+    ]
+}

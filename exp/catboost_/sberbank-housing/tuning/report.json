@@ -1,0 +1,121 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA GeForce RTX 2080 Ti",
+        "NVIDIA GeForce RTX 2080 Ti"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.catboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "iterations": 4000,
+                "early_stopping_rounds": 3999,
+                "od_pval": 0.001,
+                "bagging_temperature": [
+                    "_tune_",
+                    "uniform",
+                    0.0,
+                    1.0
+                ],
+                "depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "l2_leaf_reg": [
+                    "_tune_",
+                    "uniform",
+                    0.1,
+                    10.0
+                ],
+                "leaf_estimation_iterations": [
+                    "_tune_",
+                    "int",
+                    1,
+                    10
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "task_type": "CPU",
+                "thread_count": 4
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.catboost_.main",
+        "gpus": [
+            "NVIDIA GeForce RTX 2080 Ti",
+            "NVIDIA GeForce RTX 2080 Ti"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "iterations": 4000,
+                "early_stopping_rounds": 3999,
+                "od_pval": 0.001,
+                "bagging_temperature": 0.3731680657795451,
+                "depth": 7,
+                "l2_leaf_reg": 7.912870274742842,
+                "leaf_estimation_iterations": 1,
+                "learning_rate": 0.0807402102621723,
+                "task_type": "CPU",
+                "thread_count": 4
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:03:32.676366",
+        "best_iteration": 506,
+        "metrics": {
+            "train": {
+                "rmse": 0.21728761614136366,
+                "mae": 0.11382465278284937,
+                "r2": 0.6983635730195075,
+                "score": -0.21728761614136366
+            },
+            "val": {
+                "rmse": 0.23433703351050555,
+                "mae": 0.13079245925685604,
+                "r2": 0.6331967957332383,
+                "score": -0.23433703351050555
+            },
+            "test": {
+                "rmse": 0.24061561231432946,
+                "mae": 0.1571980035803867,
+                "r2": 0.6043718431475028,
+                "score": -0.24061561231432946
+            }
+        },
+        "trial_id": 11,
+        "tuning_time": "8:18:48.679202"
+    },
+    "time": "21:15:36.346310",
+    "n_completed_trials": 82
+}

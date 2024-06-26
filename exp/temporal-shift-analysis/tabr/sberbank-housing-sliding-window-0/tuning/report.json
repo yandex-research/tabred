@@ -1,0 +1,141 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.tabr.main",
+        "n_trials": 25,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 256,
+            "context_size": 96,
+            "model": {
+                "d_main": [
+                    "_tune_",
+                    "int-power-of-two",
+                    7,
+                    10
+                ],
+                "context_dropout": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "sliding-window-0",
+                "cat_policy": "ordinal",
+                "num_policy": "noisy-quantile"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.tabr.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 256,
+            "context_size": 96,
+            "model": {
+                "d_main": 512,
+                "context_dropout": 0.0,
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": 0.3421180622507278,
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 7.537078298264379e-05,
+                "weight_decay": 0.0009228295957427442
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "sliding-window-0",
+                "cat_policy": "ordinal",
+                "num_policy": "noisy-quantile"
+            }
+        },
+        "n_parameters": 2644481,
+        "prediction_type": "labels",
+        "epoch_size": 41,
+        "metrics": {
+            "train": {
+                "rmse": 0.2710470478164844,
+                "mae": 0.1475842446088791,
+                "r2": 0.5496538187660782,
+                "score": -0.2710470478164844
+            },
+            "val": {
+                "rmse": 0.27216900461558907,
+                "mae": 0.16029255092144012,
+                "r2": 0.4708972677639618,
+                "score": -0.27216900461558907
+            },
+            "test": {
+                "rmse": 0.2896539205288123,
+                "mae": 0.1930237114429474,
+                "r2": 0.42571646722777157,
+                "score": -0.2896539205288123
+            }
+        },
+        "best_step": 82,
+        "time": "0:00:17.789259",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 6,
+        "tuning_time": "0:03:34.979649"
+    },
+    "time": "0:11:12.480699",
+    "n_completed_trials": 25
+}

@@ -1,0 +1,59 @@
+{
+    "function": "bin.nn_baselines.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 6,
+        "patience": 16,
+        "n_epochs": -1,
+        "batch_size": 1024,
+        "model": {
+            "backbone": {
+                "type": "MLP",
+                "n_blocks": 3,
+                "d_block": 256,
+                "dropout": 0.15346176943244708
+            }
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 0.0006539193897818584,
+            "weight_decay": 0.00033349264602086637
+        },
+        "data": {
+            "seed": 0,
+            "path": ":data/weather",
+            "cache": true,
+            "split": "sliding-window-0",
+            "num_policy": "noisy-quantile"
+        }
+    },
+    "n_parameters": 158465,
+    "prediction_type": "labels",
+    "epoch_size": 258,
+    "metrics": {
+        "train": {
+            "rmse": 1.380068238063956,
+            "mae": 1.0276695489883423,
+            "r2": 0.8681368441900805,
+            "score": -1.380068238063956
+        },
+        "val": {
+            "rmse": 1.6349083987366146,
+            "mae": 1.2011469602584839,
+            "r2": 0.8283710227037359,
+            "score": -1.6349083987366146
+        },
+        "test": {
+            "rmse": 1.6972466611516086,
+            "mae": 1.2417865991592407,
+            "r2": 0.8181402214122973,
+            "score": -1.6972466611516086
+        }
+    },
+    "best_step": 6708,
+    "time": "0:00:19.310987",
+    "chunk_size": null,
+    "eval_batch_size": 32768
+}

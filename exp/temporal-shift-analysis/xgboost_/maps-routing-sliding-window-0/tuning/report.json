@@ -1,0 +1,139 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "sliding-window-0",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.5122319826891414,
+                "gamma": 0.005623741867481477,
+                "lambda": 4.607130343709838,
+                "learning_rate": 0.007356488597901895,
+                "max_depth": 8,
+                "min_child_weight": 81.83532926879022,
+                "subsample": 0.8200447023155237
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "sliding-window-0",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:02:46.414166",
+        "best_iteration": 3988,
+        "metrics": {
+            "train": {
+                "rmse": 0.11821355256214768,
+                "mae": 0.09045682102441788,
+                "r2": 0.9020378582022449,
+                "score": -0.11821355256214768
+            },
+            "val": {
+                "rmse": 0.16035133203822127,
+                "mae": 0.12163233757019043,
+                "r2": 0.818375932161619,
+                "score": -0.16035133203822127
+            },
+            "test": {
+                "rmse": 0.16280021880172335,
+                "mae": 0.12230319529771805,
+                "r2": 0.8122810087987474,
+                "score": -0.16280021880172335
+            }
+        },
+        "trial_id": 199,
+        "tuning_time": "10:46:46.024020"
+    },
+    "time": "10:46:46.105498",
+    "n_completed_trials": 200
+}

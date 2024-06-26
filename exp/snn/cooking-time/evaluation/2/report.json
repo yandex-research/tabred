@@ -1,0 +1,60 @@
+{
+    "function": "bin.nn_baselines.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 2,
+        "patience": 16,
+        "n_epochs": -1,
+        "batch_size": 1024,
+        "model": {
+            "backbone": {
+                "type": "SNN",
+                "n_blocks": 1,
+                "d_block": 128,
+                "dropout": 0.0
+            }
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 0.00018082317139927153,
+            "weight_decay": 0.000748972261511723
+        },
+        "data": {
+            "seed": 0,
+            "path": ":data/cooking-time",
+            "cache": true,
+            "split": "default",
+            "cat_policy": "ordinal",
+            "num_policy": "identity"
+        }
+    },
+    "n_parameters": 25985,
+    "prediction_type": "labels",
+    "epoch_size": 222,
+    "metrics": {
+        "train": {
+            "rmse": 0.4525718107462939,
+            "mae": 0.3528543710708618,
+            "r2": 0.529525985882548,
+            "score": -0.4525718107462939
+        },
+        "val": {
+            "rmse": 0.46683478101743986,
+            "mae": 0.3636859059333801,
+            "r2": 0.5002047338312131,
+            "score": -0.46683478101743986
+        },
+        "test": {
+            "rmse": 0.483267132429252,
+            "mae": 0.37848126888275146,
+            "r2": 0.4792910012478314,
+            "score": -0.483267132429252
+        }
+    },
+    "best_step": 12876,
+    "time": "0:00:19.501874",
+    "chunk_size": null,
+    "eval_batch_size": 32768
+}

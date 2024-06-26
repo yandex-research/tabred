@@ -1,0 +1,30 @@
+seed = 2
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 16
+d_embedding = 16
+frequency_init_scale = 0.18032598519551518
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 1
+d_block = 512
+dropout = 0.6407294068282764
+
+[optimizer]
+type = "AdamW"
+lr = 0.00011071831223484954
+weight_decay = 6.9750885054396775e-06
+
+[data]
+seed = 0
+path = ":data/cooking-time"
+cache = true
+split = "sliding-window-2"
+cat_policy = "ordinal"
+num_policy = "identity"

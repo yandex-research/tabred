@@ -1,0 +1,29 @@
+seed = 1
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 128
+d_embedding = 32
+frequency_init_scale = 0.047994022472336056
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 2
+d_block = 1024
+dropout = 0.0
+
+[optimizer]
+type = "AdamW"
+lr = 6.757273321742151e-05
+weight_decay = 1.7026762745836092e-06
+
+[data]
+seed = 0
+path = ":data/ecom-offers"
+cache = true
+split = "sliding-window-2"
+num_policy = "noisy-quantile"

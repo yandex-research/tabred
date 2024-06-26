@@ -1,0 +1,131 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.nn_baselines.main",
+        "n_trials": 100,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "SNN",
+                    "n_blocks": [
+                        "_tune_",
+                        "int",
+                        1,
+                        16
+                    ],
+                    "d_block": [
+                        "_tune_",
+                        "int-power-of-two",
+                        7,
+                        11
+                    ],
+                    "dropout": [
+                        "_tune_",
+                        "?uniform",
+                        0.0,
+                        0.0,
+                        0.75
+                    ]
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.nn_baselines.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "SNN",
+                    "n_blocks": 1,
+                    "d_block": 128,
+                    "dropout": 0.0
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 0.00018082317139927153,
+                "weight_decay": 0.000748972261511723
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        },
+        "n_parameters": 25985,
+        "prediction_type": "labels",
+        "epoch_size": 222,
+        "metrics": {
+            "train": {
+                "rmse": 0.451035846499392,
+                "mae": 0.3513675034046173,
+                "r2": 0.532714023926938,
+                "score": -0.451035846499392
+            },
+            "val": {
+                "rmse": 0.466748813724696,
+                "mae": 0.363287091255188,
+                "r2": 0.5003887715689342,
+                "score": -0.466748813724696
+            },
+            "test": {
+                "rmse": 0.483622658871535,
+                "mae": 0.3782249987125397,
+                "r2": 0.47852461364569665,
+                "score": -0.483622658871535
+            }
+        },
+        "best_step": 16650,
+        "time": "0:00:23.925629",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 88,
+        "tuning_time": "0:45:57.980656"
+    },
+    "time": "0:48:51.449448",
+    "n_completed_trials": 100,
+    "continuations": [
+        1
+    ]
+}

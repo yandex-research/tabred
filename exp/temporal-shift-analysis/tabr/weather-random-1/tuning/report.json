@@ -1,0 +1,139 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.tabr.main",
+        "n_trials": 25,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 1024,
+            "context_size": 96,
+            "model": {
+                "d_main": [
+                    "_tune_",
+                    "int-power-of-two",
+                    7,
+                    10
+                ],
+                "context_dropout": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": [
+                    "_tune_",
+                    "?uniform",
+                    0.0,
+                    0.0,
+                    0.6
+                ],
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "random-1",
+                "num_policy": "noisy-quantile"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.tabr.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "causal": false,
+            "batch_size": 1024,
+            "context_size": 96,
+            "model": {
+                "d_main": 256,
+                "context_dropout": 0.15484827672292745,
+                "d_multiplier": 2.0,
+                "encoder_n_blocks": 0,
+                "predictor_n_blocks": 1,
+                "mixer_normalization": "auto",
+                "dropout0": 0.5721411873033594,
+                "dropout1": 0.0,
+                "normalization": "LayerNorm",
+                "activation": "ReLU"
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 2.8260946187629726e-05,
+                "weight_decay": 0.0001834301563553207
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "random-1",
+                "num_policy": "noisy-quantile"
+            }
+        },
+        "n_parameters": 619777,
+        "prediction_type": "labels",
+        "epoch_size": 258,
+        "metrics": {
+            "train": {
+                "rmse": 1.2985560540933758,
+                "mae": 0.9375268816947937,
+                "r2": 0.8915666005103733,
+                "score": -1.2985560540933758
+            },
+            "val": {
+                "rmse": 1.3766325015954157,
+                "mae": 0.978767454624176,
+                "r2": 0.8766193280401873,
+                "score": -1.3766325015954157
+            },
+            "test": {
+                "rmse": 1.3698880798678905,
+                "mae": 0.9799376726150513,
+                "r2": 0.8782429726180614,
+                "score": -1.3698880798678905
+            }
+        },
+        "best_step": 35862,
+        "time": "0:41:05.799083",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 12,
+        "tuning_time": "8:30:09.860489"
+    },
+    "time": "14:18:23.069759",
+    "n_completed_trials": 25
+}

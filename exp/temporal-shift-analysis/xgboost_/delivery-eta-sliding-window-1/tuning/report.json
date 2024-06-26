@@ -1,0 +1,145 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/delivery-eta",
+                "cache": true,
+                "split": "sliding-window-1",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.5637053342675156,
+                "gamma": 1.7669643952638894,
+                "lambda": 0.1380432648731945,
+                "learning_rate": 0.006510301000613239,
+                "max_depth": 8,
+                "min_child_weight": 0.0018188320231232403,
+                "subsample": 0.8118049391234415
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/delivery-eta",
+                "cache": true,
+                "split": "sliding-window-1",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:02:10.724351",
+        "best_iteration": 3995,
+        "metrics": {
+            "train": {
+                "rmse": 0.43790743792990766,
+                "mae": 0.3442538380622864,
+                "r2": 0.6434510061042245,
+                "score": -0.43790743792990766
+            },
+            "val": {
+                "rmse": 0.5508927036363794,
+                "mae": 0.43593016266822815,
+                "r2": 0.4365835488309435,
+                "score": -0.5508927036363794
+            },
+            "test": {
+                "rmse": 0.539019734994477,
+                "mae": 0.43223148584365845,
+                "r2": 0.44996377318558345,
+                "score": -0.539019734994477
+            }
+        },
+        "trial_id": 189,
+        "tuning_time": "7:11:47.030595"
+    },
+    "time": "7:35:33.027997",
+    "n_completed_trials": 200,
+    "continuations": [
+        36,
+        45,
+        69,
+        127
+    ]
+}

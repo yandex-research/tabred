@@ -1,0 +1,137 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "sliding-window-0"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.5212830679806896,
+                "gamma": 0,
+                "lambda": 0.9891450016156724,
+                "learning_rate": 0.017249556042922297,
+                "max_depth": 9,
+                "min_child_weight": 23.422011119182482,
+                "subsample": 0.9889884359599425
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "sliding-window-0"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:01:10.651394",
+        "best_iteration": 3948,
+        "metrics": {
+            "train": {
+                "rmse": 0.7950663142467018,
+                "mae": 0.5917110443115234,
+                "r2": 0.9562347832890192,
+                "score": -0.7950663142467018
+            },
+            "val": {
+                "rmse": 1.5455110489873938,
+                "mae": 1.1255143880844116,
+                "r2": 0.8466273324525507,
+                "score": -1.5455110489873938
+            },
+            "test": {
+                "rmse": 1.6133978480583717,
+                "mae": 1.1618634462356567,
+                "r2": 0.8356651254929474,
+                "score": -1.6133978480583717
+            }
+        },
+        "trial_id": 115,
+        "tuning_time": "2:37:25.272844"
+    },
+    "time": "4:16:59.340958",
+    "n_completed_trials": 200
+}

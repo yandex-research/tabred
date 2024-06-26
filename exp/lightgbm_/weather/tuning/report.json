@@ -1,0 +1,125 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.lightgbm_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "n_estimators": 4000,
+                "stopping_rounds": 3999,
+                "device_type": "gpu",
+                "verbose": 2,
+                "n_jobs": 4,
+                "feature_fraction": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "lambda_l2": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "num_leaves": [
+                    "_tune_",
+                    "int",
+                    4,
+                    768
+                ],
+                "min_sum_hessian_in_leaf": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "bagging_fraction": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {},
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "default"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.lightgbm_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "n_estimators": 4000,
+                "stopping_rounds": 3999,
+                "device_type": "gpu",
+                "verbose": 2,
+                "n_jobs": 4,
+                "feature_fraction": 0.5079654074070609,
+                "lambda_l2": 7.547286153645901,
+                "learning_rate": 0.014054203315549055,
+                "num_leaves": 690,
+                "min_sum_hessian_in_leaf": 4.495682648739159,
+                "bagging_fraction": 0.6027070652488233
+            },
+            "fit": {},
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "default"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:16:43.708796",
+        "best_iteration": 0,
+        "metrics": {
+            "train": {
+                "rmse": 0.5018864437833535,
+                "mae": 0.3743472019327974,
+                "r2": 0.9833142107694012,
+                "score": -0.5018864437833535
+            },
+            "val": {
+                "rmse": 1.5321697155863938,
+                "mae": 1.117528631471707,
+                "r2": 0.8521812591841011,
+                "score": -1.5321697155863938
+            },
+            "test": {
+                "rmse": 1.4602085085016248,
+                "mae": 1.069647478679842,
+                "r2": 0.8562798975527637,
+                "score": -1.4602085085016248
+            }
+        },
+        "trial_id": 110,
+        "tuning_time": "1 day, 23:51:30.947496"
+    },
+    "time": "2 days, 22:24:23.998917",
+    "n_completed_trials": 170,
+    "continuations": [
+        37,
+        138
+    ]
+}

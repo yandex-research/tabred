@@ -1,0 +1,47 @@
+{
+    "function": "bin.trompt.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "batch_size": 1024,
+        "patience": 16,
+        "n_epochs": -1,
+        "data": {
+            "seed": 0,
+            "cache": true,
+            "path": ":data/maps-routing",
+            "num_policy": "identity",
+            "cat_policy": "ordinal"
+        },
+        "model": {
+            "P": 128,
+            "d": 128,
+            "n_cycles": 6
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 0.0003,
+            "weight_decay": 0.0
+        }
+    },
+    "n_parameters": 464642,
+    "prediction_type": "labels",
+    "epoch_size": 157,
+    "metrics": {
+        "val": {
+            "rmse": 0.16474651049440833,
+            "mae": 0.12436401844024658,
+            "r2": 0.8080343393884696,
+            "score": -0.16474651049440833
+        },
+        "test": {
+            "rmse": 0.16517749037167923,
+            "mae": 0.12510143220424652,
+            "r2": 0.8045706883486556,
+            "score": -0.16517749037167923
+        }
+    },
+    "best_step": 10362
+}

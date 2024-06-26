@@ -1,0 +1,127 @@
+{
+    "function": "bin.trompt_binclass.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 4,
+        "batch_size": 1024,
+        "patience": 16,
+        "n_epochs": -1,
+        "data": {
+            "seed": 0,
+            "cache": true,
+            "path": ":data/ecom-offers",
+            "num_policy": "noisy-quantile"
+        },
+        "model": {
+            "P": 128,
+            "d": 128,
+            "n_cycles": 6
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 0.0003,
+            "weight_decay": 0.0
+        }
+    },
+    "n_parameters": 129922,
+    "prediction_type": "probs",
+    "epoch_size": 107,
+    "metrics": {
+        "train": {
+            "0": {
+                "precision": 0.7810988430749503,
+                "recall": 0.984105299421471,
+                "f1-score": 0.8709287411425808,
+                "support": 84179.0
+            },
+            "1": {
+                "precision": 0.5925700365408039,
+                "recall": 0.07733884428900724,
+                "f1-score": 0.13682064262110666,
+                "support": 25162.0
+            },
+            "accuracy": 0.7754364785396146,
+            "macro avg": {
+                "precision": 0.6868344398078771,
+                "recall": 0.5307220718552391,
+                "f1-score": 0.5038746918818438,
+                "support": 109341.0
+            },
+            "weighted avg": {
+                "precision": 0.737713819799032,
+                "recall": 0.7754364785396146,
+                "f1-score": 0.7019927704179914,
+                "support": 109341.0
+            },
+            "cross-entropy": 0.5037964615492723,
+            "roc-auc": 0.6682977082121226,
+            "score": 0.6682977082121226
+        },
+        "val": {
+            "0": {
+                "precision": 0.6673397953688746,
+                "recall": 0.9583064827941745,
+                "f1-score": 0.7867837680546003,
+                "support": 15518.0
+            },
+            "1": {
+                "precision": 0.6727364693980779,
+                "recall": 0.1521216973578863,
+                "f1-score": 0.24813432835820895,
+                "support": 8743.0
+            },
+            "accuracy": 0.6677795639091546,
+            "macro avg": {
+                "precision": 0.6700381323834762,
+                "recall": 0.5552140900760304,
+                "f1-score": 0.5174590482064046,
+                "support": 24261.0
+            },
+            "weighted avg": {
+                "precision": 0.6692846088982972,
+                "recall": 0.6677795639091546,
+                "f1-score": 0.5926692611807884,
+                "support": 24261.0
+            },
+            "cross-entropy": 0.6472637350575242,
+            "roc-auc": 0.6234848722606683,
+            "score": 0.6234848722606683
+        },
+        "test": {
+            "0": {
+                "precision": 0.6508715452261307,
+                "recall": 0.9797305283063468,
+                "f1-score": 0.7821389819314054,
+                "support": 16922.0
+            },
+            "1": {
+                "precision": 0.6510681586978637,
+                "recall": 0.06713521451799014,
+                "f1-score": 0.12171928489920121,
+                "support": 9533.0
+            },
+            "accuracy": 0.6508788508788509,
+            "macro avg": {
+                "precision": 0.6509698519619972,
+                "recall": 0.5234328714121684,
+                "f1-score": 0.45192913341530333,
+                "support": 26455.0
+            },
+            "weighted avg": {
+                "precision": 0.6509423944503238,
+                "recall": 0.6508788508788509,
+                "f1-score": 0.5441582232163042,
+                "support": 26455.0
+            },
+            "cross-entropy": 0.6729440202990261,
+            "roc-auc": 0.5938478865885202,
+            "score": 0.5938478865885202
+        }
+    },
+    "best_step": 428,
+    "time": "0:49:48.389024",
+    "chunk_size": 512,
+    "eval_batch_size": 2048
+}

@@ -1,0 +1,52 @@
+seed = 0
+function = "bin.catboost_.main"
+n_trials = 200
+
+[space]
+seed = 0
+
+[space.model]
+iterations = 4000
+early_stopping_rounds = 3999
+od_pval = 0.001
+bagging_temperature = [
+    "_tune_",
+    "uniform",
+    0.0,
+    1.0,
+]
+depth = [
+    "_tune_",
+    "int",
+    3,
+    14,
+]
+l2_leaf_reg = [
+    "_tune_",
+    "uniform",
+    0.1,
+    10.0,
+]
+leaf_estimation_iterations = [
+    "_tune_",
+    "int",
+    1,
+    10,
+]
+learning_rate = [
+    "_tune_",
+    "loguniform",
+    0.001,
+    1.0,
+]
+task_type = "GPU"
+thread_count = 4
+
+[space.fit]
+logging_level = "Verbose"
+
+[space.data]
+seed = 0
+path = ":data/ecom-offers"
+cache = true
+split = "default"

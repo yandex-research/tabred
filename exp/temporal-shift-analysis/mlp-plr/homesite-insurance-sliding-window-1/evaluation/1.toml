@@ -1,0 +1,30 @@
+seed = 1
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 8
+d_embedding = 32
+frequency_init_scale = 0.030228932916384538
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 2
+d_block = 1024
+dropout = 0.6715204253126091
+
+[optimizer]
+type = "AdamW"
+lr = 0.000588157367056806
+weight_decay = 0.0009779397591765137
+
+[data]
+seed = 0
+path = ":data/homesite-insurance"
+cache = true
+split = "sliding-window-1"
+cat_policy = "ordinal"
+num_policy = "noisy-quantile"

@@ -1,0 +1,30 @@
+seed = 6
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 16
+d_embedding = 8
+frequency_init_scale = 0.03670280249487233
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 1
+d_block = 2048
+dropout = 0.37433808420690073
+
+[optimizer]
+type = "AdamW"
+lr = 1.626096085221649e-05
+weight_decay = 0.00035912824472885026
+
+[data]
+seed = 0
+path = ":data/maps-routing"
+cache = true
+split = "sliding-window-0"
+cat_policy = "ordinal"
+num_policy = "identity"

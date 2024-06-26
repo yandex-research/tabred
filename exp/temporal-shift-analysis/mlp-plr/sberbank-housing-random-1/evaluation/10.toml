@@ -1,0 +1,30 @@
+seed = 10
+patience = 16
+n_epochs = -1
+batch_size = 256
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 64
+d_embedding = 32
+frequency_init_scale = 0.011363630552563496
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 1
+d_block = 512
+dropout = 0.575312331063897
+
+[optimizer]
+type = "AdamW"
+lr = 0.0008082675538394515
+weight_decay = 6.490888839547562e-05
+
+[data]
+seed = 0
+path = ":data/sberbank-housing"
+cache = true
+split = "random-1"
+cat_policy = "ordinal"
+num_policy = "noisy-quantile"

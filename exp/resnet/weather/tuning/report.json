@@ -1,0 +1,138 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.nn_baselines.main",
+        "n_trials": 100,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "ResNet",
+                    "n_blocks": [
+                        "_tune_",
+                        "int",
+                        1,
+                        4
+                    ],
+                    "d_block": [
+                        "_tune_",
+                        "int-power-of-two",
+                        7,
+                        11
+                    ],
+                    "d_hidden_multiplier": 2,
+                    "dropout1": [
+                        "_tune_",
+                        "uniform",
+                        0.0,
+                        0.5
+                    ],
+                    "dropout2": [
+                        "_tune_",
+                        "?uniform",
+                        0.0,
+                        0.0,
+                        0.5
+                    ]
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "default",
+                "num_policy": "noisy-quantile"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.nn_baselines.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "ResNet",
+                    "n_blocks": 4,
+                    "d_block": 512,
+                    "d_hidden_multiplier": 2,
+                    "dropout1": 0.49935382794777694,
+                    "dropout2": 0.025914358653375075
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 0.0007498144621815564,
+                "weight_decay": 4.6686183895680727e-05
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/weather",
+                "cache": true,
+                "split": "default",
+                "num_policy": "noisy-quantile"
+            }
+        },
+        "n_parameters": 4259329,
+        "prediction_type": "labels",
+        "epoch_size": 333,
+        "metrics": {
+            "train": {
+                "rmse": 1.3630495503011741,
+                "mae": 1.0026968717575073,
+                "r2": 0.8769280338476115,
+                "score": -1.3630495503011741
+            },
+            "val": {
+                "rmse": 1.571262432889829,
+                "mae": 1.1501554250717163,
+                "r2": 0.8445419404063736,
+                "score": -1.571262432889829
+            },
+            "test": {
+                "rmse": 1.5013871137146046,
+                "mae": 1.0980056524276733,
+                "r2": 0.8480596459449057,
+                "score": -1.5013871137146046
+            }
+        },
+        "best_step": 10656,
+        "time": "0:00:58.017412",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 53,
+        "tuning_time": "1:59:52.075027"
+    },
+    "time": "2:46:47.108693",
+    "n_completed_trials": 100,
+    "continuations": [
+        26
+    ]
+}

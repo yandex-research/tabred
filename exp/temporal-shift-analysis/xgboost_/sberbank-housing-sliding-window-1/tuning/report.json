@@ -1,0 +1,143 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "sliding-window-1",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.805639418210311,
+                "gamma": 0.1855078257201285,
+                "lambda": 6.33604642740767,
+                "learning_rate": 0.003096269838895894,
+                "max_depth": 6,
+                "min_child_weight": 1.5195046500967784,
+                "subsample": 0.9150265212390128
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "sliding-window-1",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:00:35.286622",
+        "best_iteration": 3831,
+        "metrics": {
+            "train": {
+                "rmse": 0.14897620801339856,
+                "mae": 0.07916629314422607,
+                "r2": 0.8504107542445031,
+                "score": -0.14897620801339856
+            },
+            "val": {
+                "rmse": 0.25016452918568016,
+                "mae": 0.1393284797668457,
+                "r2": 0.571630075158654,
+                "score": -0.25016452918568016
+            },
+            "test": {
+                "rmse": 0.24542665133919844,
+                "mae": 0.14762113988399506,
+                "r2": 0.6006866303800585,
+                "score": -0.24542665133919844
+            }
+        },
+        "trial_id": 145,
+        "tuning_time": "2:28:04.847933"
+    },
+    "time": "3:03:27.959440",
+    "n_completed_trials": 200,
+    "continuations": [
+        36,
+        58
+    ]
+}

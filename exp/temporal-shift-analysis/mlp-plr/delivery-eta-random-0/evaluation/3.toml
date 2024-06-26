@@ -1,0 +1,30 @@
+seed = 3
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 64
+d_embedding = 8
+frequency_init_scale = 0.027013256462613527
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 1
+d_block = 2048
+dropout = 0.7460205889960756
+
+[optimizer]
+type = "AdamW"
+lr = 4.9897861005510744e-05
+weight_decay = 0.0003163076808781185
+
+[data]
+seed = 0
+path = ":data/delivery-eta"
+cache = true
+split = "random-0"
+cat_policy = "ordinal"
+num_policy = "identity"

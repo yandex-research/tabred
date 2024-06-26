@@ -1,0 +1,139 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "random-0",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.5090022237779552,
+                "gamma": 0,
+                "lambda": 6.06763906295072,
+                "learning_rate": 0.005300366576413499,
+                "max_depth": 9,
+                "min_child_weight": 0.0035484569329249714,
+                "subsample": 0.8159379211373473
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "random-0",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:04:42.766614",
+        "best_iteration": 3911,
+        "metrics": {
+            "train": {
+                "rmse": 0.33591865885927774,
+                "mae": 0.25952818989753723,
+                "r2": 0.7404522207378618,
+                "score": -0.33591865885927774
+            },
+            "val": {
+                "rmse": 0.4528856796460541,
+                "mae": 0.3525967597961426,
+                "r2": 0.5259094434387819,
+                "score": -0.4528856796460541
+            },
+            "test": {
+                "rmse": 0.4560516978131144,
+                "mae": 0.3554341495037079,
+                "r2": 0.5290188156864797,
+                "score": -0.4560516978131144
+            }
+        },
+        "trial_id": 174,
+        "tuning_time": "8:56:06.232718"
+    },
+    "time": "10:55:34.948859",
+    "n_completed_trials": 200
+}

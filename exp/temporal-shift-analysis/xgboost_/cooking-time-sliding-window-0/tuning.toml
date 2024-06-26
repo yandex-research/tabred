@@ -1,0 +1,69 @@
+seed = 0
+function = "bin.xgboost_.main"
+n_trials = 200
+
+[space]
+seed = 0
+
+[space.model]
+booster = "gbtree"
+n_estimators = 4000
+early_stopping_rounds = 3999
+n_jobs = 1
+tree_method = "hist"
+device = "cuda"
+use_label_encoder = false
+colsample_bytree = [
+    "_tune_",
+    "uniform",
+    0.5,
+    1.0,
+]
+gamma = [
+    "_tune_",
+    "?loguniform",
+    0,
+    0.001,
+    100.0,
+]
+lambda = [
+    "_tune_",
+    "?loguniform",
+    0.0,
+    0.1,
+    10.0,
+]
+learning_rate = [
+    "_tune_",
+    "loguniform",
+    0.001,
+    1.0,
+]
+max_depth = [
+    "_tune_",
+    "int",
+    3,
+    14,
+]
+min_child_weight = [
+    "_tune_",
+    "loguniform",
+    0.0001,
+    100.0,
+]
+subsample = [
+    "_tune_",
+    "uniform",
+    0.5,
+    1.0,
+]
+
+[space.fit]
+verbose = true
+
+[space.data]
+seed = 0
+path = ":data/cooking-time"
+cache = true
+split = "sliding-window-0"
+cat_policy = "ordinal"

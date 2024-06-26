@@ -1,0 +1,123 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.catboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "iterations": 4000,
+                "early_stopping_rounds": 3999,
+                "od_pval": 0.001,
+                "bagging_temperature": [
+                    "_tune_",
+                    "uniform",
+                    0.0,
+                    1.0
+                ],
+                "depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "l2_leaf_reg": [
+                    "_tune_",
+                    "uniform",
+                    0.1,
+                    10.0
+                ],
+                "leaf_estimation_iterations": [
+                    "_tune_",
+                    "int",
+                    1,
+                    10
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "task_type": "GPU",
+                "thread_count": 4
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.catboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "iterations": 4000,
+                "early_stopping_rounds": 3999,
+                "od_pval": 0.001,
+                "bagging_temperature": 0.33989768274894633,
+                "depth": 8,
+                "l2_leaf_reg": 9.292302196314568,
+                "leaf_estimation_iterations": 8,
+                "learning_rate": 0.02081311288707615,
+                "task_type": "GPU",
+                "thread_count": 4
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:10:42.010617",
+        "best_iteration": 3872,
+        "metrics": {
+            "train": {
+                "rmse": 0.13097643269844886,
+                "mae": 0.10084552046308597,
+                "r2": 0.8793580868410772,
+                "score": -0.13097643269844886
+            },
+            "val": {
+                "rmse": 0.16182011820375136,
+                "mae": 0.12165393843560907,
+                "r2": 0.8147935414466224,
+                "score": -0.16182011820375136
+            },
+            "test": {
+                "rmse": 0.16199862483516686,
+                "mae": 0.12207391117481887,
+                "r2": 0.8120204296261043,
+                "score": -0.16199862483516686
+            }
+        },
+        "trial_id": 106,
+        "tuning_time": "1 day, 11:04:25.997023"
+    },
+    "time": "2 days, 4:10:36.191917",
+    "n_completed_trials": 200,
+    "continuations": [
+        3,
+        18
+    ]
+}

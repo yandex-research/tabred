@@ -1,0 +1,122 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.catboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "iterations": 4000,
+                "early_stopping_rounds": 3999,
+                "od_pval": 0.001,
+                "bagging_temperature": [
+                    "_tune_",
+                    "uniform",
+                    0.0,
+                    1.0
+                ],
+                "depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "l2_leaf_reg": [
+                    "_tune_",
+                    "uniform",
+                    0.1,
+                    10.0
+                ],
+                "leaf_estimation_iterations": [
+                    "_tune_",
+                    "int",
+                    1,
+                    10
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "task_type": "GPU",
+                "thread_count": 4
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.catboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "iterations": 4000,
+                "early_stopping_rounds": 3999,
+                "od_pval": 0.001,
+                "bagging_temperature": 0.37679844600139817,
+                "depth": 8,
+                "l2_leaf_reg": 4.343375626590167,
+                "leaf_estimation_iterations": 7,
+                "learning_rate": 0.01777689093587204,
+                "task_type": "GPU",
+                "thread_count": 4
+            },
+            "fit": {
+                "logging_level": "Verbose"
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/cooking-time",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:09:13.066342",
+        "best_iteration": 3985,
+        "metrics": {
+            "train": {
+                "rmse": 0.4098407634660154,
+                "mae": 0.32054899496461714,
+                "r2": 0.614174479207653,
+                "score": -0.4098407634660154
+            },
+            "val": {
+                "rmse": 0.46323950309789114,
+                "mae": 0.36000361536170483,
+                "r2": 0.5078733175695377,
+                "score": -0.46323950309789114
+            },
+            "test": {
+                "rmse": 0.4823457999242914,
+                "mae": 0.37615013214174037,
+                "r2": 0.48127455170872,
+                "score": -0.4823457999242914
+            }
+        },
+        "trial_id": 183,
+        "tuning_time": "1 day, 10:58:28.983148"
+    },
+    "time": "1 day, 13:26:25.790231",
+    "n_completed_trials": 200,
+    "continuations": [
+        98
+    ]
+}

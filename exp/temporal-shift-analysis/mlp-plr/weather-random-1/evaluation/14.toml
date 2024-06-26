@@ -1,0 +1,29 @@
+seed = 14
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 128
+d_embedding = 8
+frequency_init_scale = 0.1580906882799081
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 1
+d_block = 2048
+dropout = 0.7450928456965549
+
+[optimizer]
+type = "AdamW"
+lr = 0.00028455437906697303
+weight_decay = 1.1324288811031189e-06
+
+[data]
+seed = 0
+path = ":data/weather"
+cache = true
+split = "random-1"
+num_policy = "noisy-quantile"

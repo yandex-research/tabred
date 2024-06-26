@@ -1,0 +1,152 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.nn_baselines.main",
+        "n_trials": 25,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "FTTransformerBackbone",
+                    "attention_n_heads": 8,
+                    "ffn_d_hidden_multiplier": 2,
+                    "ffn_activation": "ReLU",
+                    "residual_dropout": 0,
+                    "n_blocks": [
+                        "_tune_",
+                        "int",
+                        1,
+                        4
+                    ],
+                    "d_block": [
+                        "_tune_",
+                        "int-power-of-two",
+                        5,
+                        8
+                    ],
+                    "attention_dropout": [
+                        "_tune_",
+                        "uniform",
+                        0.0,
+                        0.5
+                    ],
+                    "ffn_dropout": [
+                        "_tune_",
+                        "uniform",
+                        0.0,
+                        0.5
+                    ]
+                },
+                "num_embeddings": {
+                    "type": "LinearEmbeddings"
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.nn_baselines.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "FTTransformerBackbone",
+                    "attention_n_heads": 8,
+                    "ffn_d_hidden_multiplier": 2,
+                    "ffn_activation": "ReLU",
+                    "residual_dropout": 0,
+                    "n_blocks": 2,
+                    "d_block": 128,
+                    "attention_dropout": 0.40231474255641725,
+                    "ffn_dropout": 0.011880996379985242
+                },
+                "num_embeddings": {
+                    "type": "LinearEmbeddings"
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 0.0001838940112038131,
+                "weight_decay": 5.493045340935069e-05
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        },
+        "n_parameters": 519425,
+        "prediction_type": "labels",
+        "epoch_size": 157,
+        "metrics": {
+            "train": {
+                "rmse": 0.15857219032731512,
+                "mae": 0.1207914799451828,
+                "r2": 0.8231659318587304,
+                "score": -0.15857219032731512
+            },
+            "val": {
+                "rmse": 0.16232084935188518,
+                "mae": 0.12258657813072205,
+                "r2": 0.8136456095427709,
+                "score": -0.16232084935188518
+            },
+            "test": {
+                "rmse": 0.1621820620082694,
+                "mae": 0.12271147221326828,
+                "r2": 0.8115944928601575,
+                "score": -0.1621820620082694
+            }
+        },
+        "best_step": 7536,
+        "time": "3:39:15.176638",
+        "chunk_size": 512,
+        "eval_batch_size": 1024,
+        "trial_id": 13,
+        "tuning_time": "2 days, 23:53:09.318393"
+    },
+    "time": "5 days, 1:15:15.795255",
+    "n_completed_trials": 25,
+    "continuations": [
+        10,
+        23
+    ]
+}

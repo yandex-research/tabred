@@ -1,0 +1,139 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.xgboost_.main",
+        "n_trials": 200,
+        "space": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ],
+                "gamma": [
+                    "_tune_",
+                    "?loguniform",
+                    0,
+                    0.001,
+                    100.0
+                ],
+                "lambda": [
+                    "_tune_",
+                    "?loguniform",
+                    0.0,
+                    0.1,
+                    10.0
+                ],
+                "learning_rate": [
+                    "_tune_",
+                    "loguniform",
+                    0.001,
+                    1.0
+                ],
+                "max_depth": [
+                    "_tune_",
+                    "int",
+                    3,
+                    14
+                ],
+                "min_child_weight": [
+                    "_tune_",
+                    "loguniform",
+                    0.0001,
+                    100.0
+                ],
+                "subsample": [
+                    "_tune_",
+                    "uniform",
+                    0.5,
+                    1.0
+                ]
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "random-1",
+                "cat_policy": "ordinal"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.xgboost_.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "model": {
+                "booster": "gbtree",
+                "n_estimators": 4000,
+                "early_stopping_rounds": 3999,
+                "n_jobs": 1,
+                "tree_method": "hist",
+                "device": "cuda",
+                "use_label_encoder": false,
+                "colsample_bytree": 0.530085916155231,
+                "gamma": 0,
+                "lambda": 2.795351705293538,
+                "learning_rate": 0.012460864578505322,
+                "max_depth": 5,
+                "min_child_weight": 0.0023524888028415574,
+                "subsample": 0.99881050279539
+            },
+            "fit": {
+                "verbose": true
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/sberbank-housing",
+                "cache": true,
+                "split": "random-1",
+                "cat_policy": "ordinal"
+            }
+        },
+        "prediction_type": "labels",
+        "time": "0:00:27.929493",
+        "best_iteration": 1321,
+        "metrics": {
+            "train": {
+                "rmse": 0.16079912023336262,
+                "mae": 0.08772287517786026,
+                "r2": 0.8293270772931212,
+                "score": -0.16079912023336262
+            },
+            "val": {
+                "rmse": 0.23561668500217733,
+                "mae": 0.12290336191654205,
+                "r2": 0.6258846138529551,
+                "score": -0.23561668500217733
+            },
+            "test": {
+                "rmse": 0.2257182818849841,
+                "mae": 0.1181984692811966,
+                "r2": 0.6565595857576662,
+                "score": -0.2257182818849841
+            }
+        },
+        "trial_id": 158,
+        "tuning_time": "2:15:56.765923"
+    },
+    "time": "2:35:48.126349",
+    "n_completed_trials": 200
+}

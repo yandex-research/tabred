@@ -1,0 +1,30 @@
+seed = 0
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.num_embeddings]
+type = "PeriodicEmbeddings"
+n_frequencies = 4
+d_embedding = 16
+frequency_init_scale = 0.015611724868930248
+lite = false
+
+[model.backbone]
+type = "MLP"
+n_blocks = 3
+d_block = 256
+dropout = 0.29430442224271275
+
+[optimizer]
+type = "AdamW"
+lr = 0.000181979491110881
+weight_decay = 4.638951034276232e-06
+
+[data]
+seed = 0
+path = ":data/homecredit-default"
+cache = true
+split = "random-1"
+cat_policy = "ordinal"
+num_policy = "noisy-quantile"

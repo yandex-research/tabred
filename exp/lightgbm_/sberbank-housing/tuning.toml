@@ -1,0 +1,59 @@
+seed = 0
+function = "bin.lightgbm_.main"
+n_trials = 200
+
+[space]
+seed = 0
+
+[space.model]
+n_estimators = 4000
+stopping_rounds = 3999
+device_type = "gpu"
+verbose = 2
+n_jobs = 4
+feature_fraction = [
+    "_tune_",
+    "uniform",
+    0.5,
+    1.0,
+]
+lambda_l2 = [
+    "_tune_",
+    "?loguniform",
+    0.0,
+    0.1,
+    10.0,
+]
+learning_rate = [
+    "_tune_",
+    "loguniform",
+    0.001,
+    1.0,
+]
+num_leaves = [
+    "_tune_",
+    "int",
+    4,
+    768,
+]
+min_sum_hessian_in_leaf = [
+    "_tune_",
+    "loguniform",
+    0.0001,
+    100.0,
+]
+bagging_fraction = [
+    "_tune_",
+    "uniform",
+    0.5,
+    1.0,
+]
+
+[space.fit]
+
+[space.data]
+seed = 0
+path = ":data/sberbank-housing"
+cache = true
+split = "default"
+cat_policy = "ordinal"

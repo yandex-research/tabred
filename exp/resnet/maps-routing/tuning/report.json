@@ -1,0 +1,137 @@
+{
+    "function": "bin.tune.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "function": "bin.nn_baselines.main",
+        "n_trials": 100,
+        "space": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "ResNet",
+                    "n_blocks": [
+                        "_tune_",
+                        "int",
+                        1,
+                        4
+                    ],
+                    "d_block": [
+                        "_tune_",
+                        "int-power-of-two",
+                        7,
+                        11
+                    ],
+                    "d_hidden_multiplier": 2,
+                    "dropout1": [
+                        "_tune_",
+                        "uniform",
+                        0.0,
+                        0.5
+                    ],
+                    "dropout2": [
+                        "_tune_",
+                        "?uniform",
+                        0.0,
+                        0.0,
+                        0.5
+                    ]
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": [
+                    "_tune_",
+                    "loguniform",
+                    1e-05,
+                    0.001
+                ],
+                "weight_decay": [
+                    "_tune_",
+                    "loguniform",
+                    1e-06,
+                    0.001
+                ]
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        }
+    },
+    "best": {
+        "function": "bin.nn_baselines.main",
+        "gpus": [
+            "NVIDIA A100-SXM4-80GB"
+        ],
+        "config": {
+            "seed": 0,
+            "patience": 16,
+            "n_epochs": -1,
+            "batch_size": 1024,
+            "model": {
+                "backbone": {
+                    "type": "ResNet",
+                    "n_blocks": 3,
+                    "d_block": 256,
+                    "d_hidden_multiplier": 2,
+                    "dropout1": 0.49970175252769544,
+                    "dropout2": 0.4258114950057277
+                }
+            },
+            "optimizer": {
+                "type": "AdamW",
+                "lr": 4.2981702003444884e-05,
+                "weight_decay": 2.3209584562768377e-05
+            },
+            "data": {
+                "seed": 0,
+                "path": ":data/maps-routing",
+                "cache": true,
+                "split": "default",
+                "cat_policy": "ordinal",
+                "num_policy": "identity"
+            }
+        },
+        "n_parameters": 1047297,
+        "prediction_type": "labels",
+        "epoch_size": 157,
+        "metrics": {
+            "train": {
+                "rmse": 0.1533057697955638,
+                "mae": 0.11669529974460602,
+                "r2": 0.83471674140634,
+                "score": -0.1533057697955638
+            },
+            "val": {
+                "rmse": 0.1621952691082492,
+                "mae": 0.12244182080030441,
+                "r2": 0.8139338089243866,
+                "score": -0.1621952691082492
+            },
+            "test": {
+                "rmse": 0.16219116928014554,
+                "mae": 0.12267904728651047,
+                "r2": 0.8115733220817849,
+                "score": -0.16219116928014554
+            }
+        },
+        "best_step": 8164,
+        "time": "0:00:33.268627",
+        "chunk_size": null,
+        "eval_batch_size": 32768,
+        "trial_id": 59,
+        "tuning_time": "0:38:19.424839"
+    },
+    "time": "1:04:13.149188",
+    "n_completed_trials": 100
+}

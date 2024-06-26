@@ -1,0 +1,55 @@
+{
+    "function": "bin.trompt.main",
+    "gpus": [
+        "NVIDIA A100-SXM4-80GB"
+    ],
+    "config": {
+        "seed": 0,
+        "batch_size": 1024,
+        "patience": 16,
+        "n_epochs": Infinity,
+        "data": {
+            "seed": 0,
+            "cache": true,
+            "path": ":data/weather",
+            "num_policy": "noisy-quantile"
+        },
+        "model": {
+            "P": 128,
+            "d": 128,
+            "n_cycles": 6
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "lr": 0.0003,
+            "weight_decay": 0.0
+        }
+    },
+    "n_parameters": 123778,
+    "prediction_type": "labels",
+    "epoch_size": 333,
+    "metrics": {
+        "train": {
+            "rmse": 1.4714061176502127,
+            "mae": 1.0798732042312622,
+            "r2": 0.8565829065761947,
+            "score": -1.4714061176502127
+        },
+        "val": {
+            "rmse": 1.603476966456958,
+            "mae": 1.1742714643478394,
+            "r2": 0.8381021148465606,
+            "score": -1.603476966456958
+        },
+        "test": {
+            "rmse": 1.5392183331442626,
+            "mae": 1.1301411390304565,
+            "r2": 0.8403061348053803,
+            "score": -1.5392183331442626
+        }
+    },
+    "best_step": 22311,
+    "time": "14:00:37.270357",
+    "chunk_size": 512,
+    "eval_batch_size": 2048
+}

@@ -1,0 +1,31 @@
+seed = 4
+patience = 16
+n_epochs = -1
+batch_size = 1024
+
+[model.backbone]
+type = "FTTransformerBackbone"
+attention_n_heads = 8
+ffn_d_hidden_multiplier = 2
+ffn_activation = "ReLU"
+residual_dropout = 0
+n_blocks = 3
+d_block = 256
+attention_dropout = 0.03551802909894347
+ffn_dropout = 0.043564649850770354
+
+[model.num_embeddings]
+type = "LinearEmbeddings"
+
+[optimizer]
+type = "AdamW"
+lr = 1.0975815419380153e-05
+weight_decay = 0.0003146730406166008
+
+[data]
+seed = 0
+path = ":data/delivery-eta"
+cache = true
+split = "default"
+cat_policy = "ordinal"
+num_policy = "identity"
