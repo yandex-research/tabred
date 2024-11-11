@@ -8,40 +8,48 @@
         "batch_size": 1024,
         "patience": 16,
         "n_epochs": -1,
+        "gradient_clipping_norm": 1.0,
         "data": {
-            "seed": 0,
             "cache": true,
-            "path": ":data/maps-routing",
-            "num_policy": "identity",
+            "path": "data/maps-routing",
             "cat_policy": "ordinal"
-        },
-        "model": {
-            "P": 128,
-            "d": 128,
-            "n_cycles": 6
         },
         "optimizer": {
             "type": "AdamW",
             "lr": 0.0003,
             "weight_decay": 0.0
+        },
+        "model": {
+            "P": 128,
+            "d": 128,
+            "n_cycles": 6
         }
     },
-    "n_parameters": 464642,
+    "n_parameters": 2620802,
     "prediction_type": "labels",
     "epoch_size": 157,
+    "best_step": 12246,
     "metrics": {
+        "train": {
+            "rmse": 0.15105580943312188,
+            "mae": 0.11532905697822571,
+            "r2": 0.8395326276804598,
+            "score": -0.15105580943312188
+        },
         "val": {
-            "rmse": 0.16474651049440833,
-            "mae": 0.12436401844024658,
-            "r2": 0.8080343393884696,
-            "score": -0.16474651049440833
+            "rmse": 0.16242934442384557,
+            "mae": 0.12248930335044861,
+            "r2": 0.8133963685493222,
+            "score": -0.16242934442384557
         },
         "test": {
-            "rmse": 0.16517749037167923,
-            "mae": 0.12510143220424652,
-            "r2": 0.8045706883486556,
-            "score": -0.16517749037167923
+            "rmse": 0.16239075197838676,
+            "mae": 0.12266504019498825,
+            "r2": 0.8111093023817014,
+            "score": -0.16239075197838676
         }
     },
-    "best_step": 10362
+    "time": "2 days, 20:09:34.097114",
+    "chunk_size": 32,
+    "eval_batch_size": 256
 }

@@ -101,7 +101,7 @@ class TromptDownstream(nn.Module):
 class Model(nn.Module): #Trompt
     def __init__(self, n_num_features, n_bin_features, cat_cardinalities, P, d, n_cycles):
         super().__init__()
-        self.tcell = TromptCell(n_num_features, n_bin_features, cat_cardinalities, P, d)
+        self.tcells = [TromptCell(n_num_features, n_bin_features, cat_cardinalities, P, d) for _ in range(n_cycles)]
         self.tdown = TromptDownstream(d)
         self.init_rec = nn.Parameter(torch.empty(P, d))
         nn.init.normal_(self.init_rec, std=0.01)
@@ -110,7 +110,7 @@ class Model(nn.Module): #Trompt
         O = self.init_rec.unsqueeze(0).repeat(x_num.shape[0], 1, 1)
         outputs = []
         for i in range(self.n_cycles):
-            O = self.tcell(x_num, x_bin, x_cat, O)
+            O = self.tcells[i](x_num, x_bin, x_cat, O)
             outputs.append(self.tdown(O))
         return torch.stack(outputs, dim=1).squeeze(-1)
 
