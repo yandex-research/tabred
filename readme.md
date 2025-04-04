@@ -26,8 +26,8 @@ Here is the initial rendition of TabReD with links to datasets and basic metadat
 | Sberbank Housing   | 392      | Regression     | 28,321         | -                   | [Competition](https://www.kaggle.com/competitions/sberbank-russian-housing-market)         |
 | Cooking Time       | 192      | Regression     | 319,986        | 12,799,642          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/cooking-time)                      |
 | Delivery ETA       | 223      | Regression     | 416,451        | 17,044,043          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/delivery-eta)                      |
-| Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/tabred-weather)                    |
-| Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/maps-routing)                      |
+| Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/maps-routing)                      |
+| Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/tabred-weather)                    |
 
 ## Repository Structure
 
