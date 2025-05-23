@@ -22,14 +22,14 @@
 
 import argparse
 
-from cooking_time import main as download_cooking
-from delivery_eta import main as download_delivery
-from ecom_offers import main as download_ecom
-from homecredit import main as download_homecredit
-from homesite import main as download_homesite
-from maps_routing import main as download_maps_routing
-from sberbank_housing import main as download_sberbank_housing
-from weather import main as download_weather
+from preprocessing.cooking_time import main as download_cooking
+from preprocessing.delivery_eta import main as download_delivery
+from preprocessing.ecom_offers import main as download_ecom
+from preprocessing.homecredit import main as download_homecredit
+from preprocessing.homesite import main as download_homesite
+from preprocessing.maps_routing import main as download_maps_routing
+from preprocessing.sberbank_housing import main as download_sberbank_housing
+from preprocessing.weather import main as download_weather
 
 DATASET_TO_COMMAND = {
     "cooking-time": download_cooking,
