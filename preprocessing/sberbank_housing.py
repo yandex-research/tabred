@@ -7,7 +7,7 @@ import polars as pl
 from loguru import logger
 from sklearn.preprocessing import OrdinalEncoder
 
-from preprocessing.util import PROJECT_DIR, download, save_dataset, unzip
+from .util import PROJECT_DIR, download, save_dataset, unzip
 
 
 def main(original_data_path: str | None):

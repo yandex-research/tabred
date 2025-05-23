@@ -5,7 +5,7 @@ import numpy as np
 import polars as pl
 from loguru import logger
 
-from preprocessing.util import PROJECT_DIR, save_dataset, unzip
+from .util import PROJECT_DIR, save_dataset, unzip
 
 
 def main(original_data_path: str | None):

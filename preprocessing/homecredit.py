@@ -7,7 +7,7 @@ import polars as pl
 from loguru import logger
 from sklearn.preprocessing import OrdinalEncoder
 
-from preprocessing.util import PROJECT_DIR, save_dataset, unzip
+from .util import PROJECT_DIR, save_dataset, unzip
 
 
 def set_table_dtypes(df):

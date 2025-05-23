@@ -37,7 +37,7 @@ DATASET_TO_COMMAND = {
     "ecom-offers": download_ecom,
     "homecredit": download_homecredit,
     "homesite": download_homesite,
-    "maps_routing": download_maps_routing,
+    "maps-routing": download_maps_routing,
     "sberbank-housing": download_sberbank_housing,
     "weather": download_weather,
 }
