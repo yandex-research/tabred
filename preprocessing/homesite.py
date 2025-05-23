@@ -1,6 +1,7 @@
 # Homesite Insurance preprocessing and splitting script
 
 import zipfile
+from pathlib import Path
 
 import numpy as np
 import polars as pl
@@ -25,7 +26,7 @@ def main(original_data_path: str | None):
         )
         unzip(TMP_DATA_PATH / "homesite-quote-conversion.zip")
     else:
-        TMP_DATA_PATH = original_data_path
+        TMP_DATA_PATH = Path(original_data_path)
 
     # ======================================================================================
     # >>> Split into num, cat, bin and add time features <<<

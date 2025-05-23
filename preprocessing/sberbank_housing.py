@@ -1,5 +1,6 @@
 # Sberbank Housing preprocessing and splitting script
 import zipfile
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,7 +27,7 @@ def main(original_data_path: str | None):
             TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx",
         )
     else:
-        TMP_DATA_PATH = original_data_path
+        TMP_DATA_PATH = Path(original_data_path)
 
     # ======================================================================================
     # >>> Preprocessing <<<

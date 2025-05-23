@@ -1,5 +1,6 @@
 # Ecom Offers (Acquire Valued Shoppers by DMDave) preprocessign and splitting script
 import gzip
+from pathlib import Path
 
 import numpy as np
 import polars as pl
@@ -19,7 +20,7 @@ def main(original_data_path: str | None):
         )
         unzip(TMP_DATA_PATH / "acquire-valued-shoppers-challenge.zip")
     else:
-        TMP_DATA_PATH = original_data_path
+        TMP_DATA_PATH = Path(original_data_path)
 
     # ======================================================================================
     # >>> Preprocessing <<<

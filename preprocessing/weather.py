@@ -1,5 +1,7 @@
 # Weather Forecasting
 
+from pathlib import Path
+
 import numpy as np
 import polars as pl
 from loguru import logger
@@ -23,7 +25,7 @@ def main(original_data_path: str | None):
         )
         unzip(TMP_DATA_PATH / "tabred-weather.zip")
     else:
-        TMP_DATA_PATH = original_data_path
+        TMP_DATA_PATH = Path(original_data_path)
 
     data = pl.read_parquet(TMP_DATA_PATH / "weather.parquet").with_row_index(
         name="index_in_full"

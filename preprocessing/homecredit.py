@@ -1,5 +1,6 @@
 # Homecredit Default Stability Preprocessing
 import itertools
+from pathlib import Path
 from typing import Iterable
 
 import numpy as np
@@ -125,7 +126,7 @@ def main(original_data_path: str | None):
         )
         unzip(TMP_DATA_PATH / "home-credit-credit-risk-model-stability.zip")
     else:
-        original_data_path = DATA_FILES_PATH
+        DATA_FILES_PATH = Path(original_data_path)
 
     # ================================================================
     # >> Load data aggregate and join

@@ -1,5 +1,7 @@
 # > Maps Routing task and dataset
 
+from pathlib import Path
+
 import numpy as np
 import polars as pl
 from loguru import logger
@@ -24,7 +26,7 @@ def main(original_data_path: str | None):
         )
         unzip(TMP_DATA_PATH / "maps-routing.zip")
     else:
-        TMP_DATA_PATH = original_data_path
+        TMP_DATA_PATH = Path(original_data_path)
 
     # Store full_index to help with potential future experiments on large data
     data = pl.read_parquet(TMP_DATA_PATH / "maps_routing.parquet").with_row_index(
