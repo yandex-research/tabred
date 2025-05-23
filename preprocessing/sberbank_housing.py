@@ -1,7 +1,6 @@
 # Sberbank Housing preprocessing and splitting script
 import zipfile
 
-import kaggle
 import matplotlib.pyplot as plt
 import numpy as np
 import polars as pl
@@ -13,6 +12,8 @@ from preprocessing.util import PROJECT_DIR, download, save_dataset, unzip
 
 def main(original_data_path: str | None):
     if original_data_path is None:
+        import kaggle
+
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/sberbank-housing"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
 

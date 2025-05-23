@@ -2,7 +2,6 @@
 import itertools
 from typing import Iterable
 
-import kaggle
 import numpy as np
 import polars as pl
 from loguru import logger
@@ -116,6 +115,8 @@ def aggregate_features(df: pl.LazyFrame):
 def main(original_data_path: str | None):
     logger.info("Preprocessing homecredit-default-stability data")
     if original_data_path is None:
+        import kaggle
+
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/homecredit-default"
         DATA_FILES_PATH = TMP_DATA_PATH / "parquet_files/train"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)

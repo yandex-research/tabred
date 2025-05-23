@@ -1,6 +1,5 @@
 # > Maps Routing task and dataset
 
-import kaggle
 import numpy as np
 import polars as pl
 from loguru import logger
@@ -16,6 +15,8 @@ def main(original_data_path: str | None):
 
     logger.info("Preprocessing maps routing dataset")
     if original_data_path is None:
+        import kaggle
+
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/maps-routing"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
         kaggle.api.dataset_download_files(

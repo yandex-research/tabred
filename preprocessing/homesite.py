@@ -2,7 +2,6 @@
 
 import zipfile
 
-import kaggle
 import numpy as np
 import polars as pl
 from loguru import logger
@@ -17,6 +16,8 @@ def main(original_data_path: str | None):
     # Download and load dataset to memory
 
     if original_data_path is None:
+        import kaggle
+
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/homesite"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
         kaggle.api.competition_download_files(
