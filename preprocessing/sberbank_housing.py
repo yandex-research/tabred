@@ -22,12 +22,13 @@ def main(original_data_path: str | None):
             "sberbank-russian-housing-market", path=TMP_DATA_PATH
         )
         unzip(TMP_DATA_PATH / "sberbank-russian-housing-market.zip")
-        download(
-            "https://storage.googleapis.com/kaggle-forum-message-attachments/190521/6630/BAD_ADDRESS_FIX.xlsx",
-            TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx",
-        )
     else:
         TMP_DATA_PATH = Path(original_data_path)
+
+    download(
+        "https://storage.googleapis.com/kaggle-forum-message-attachments/190521/6630/BAD_ADDRESS_FIX.xlsx",
+        TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx",
+    )
 
     # ======================================================================================
     # >>> Preprocessing <<<
