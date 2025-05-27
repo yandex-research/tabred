@@ -9,7 +9,7 @@ import polars as pl
 from loguru import logger
 from sklearn.preprocessing import OrdinalEncoder
 
-from .util import PROJECT_DIR, download, save_dataset, unzip
+from .util import PROJECT_DIR, save_dataset, unzip
 
 
 def main(original_data_path: str | None):
@@ -29,12 +29,6 @@ def main(original_data_path: str | None):
             unzip(TMP_DATA_PATH / "sberbank-russian-housing-market.zip")
     else:
         TMP_DATA_PATH = Path(original_data_path)
-
-    download(
-        "https://storage.googleapis.com/kaggle-forum-message-attachments/190521/6630/BAD_ADDRESS_FIX.xlsx",
-        TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx",
-    )
-    os.chmod(TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx", 0o644)
 
     # ======================================================================================
     # >>> Preprocessing <<<
@@ -68,8 +62,8 @@ def main(original_data_path: str | None):
     # details in preprocessing/readme.md
 
     data_fixup = pl.read_excel(
-        TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx", read_options=dict(null_values=["NA"])
-    )
+        "https://storage.googleapis.com/kaggle-forum-message-attachments/190521/6630/BAD_ADDRESS_FIX.xlsx"
+    ).fill_null("NA")
 
     data = data.filter(
         pl.col("kremlin_km").ne(pl.col("kremlin_km").min())

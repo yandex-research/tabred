@@ -1,6 +1,7 @@
 # /// script
 # requires-python = ">=3.11.9"
 # dependencies = [
+#     "fastexcel==0.14.0",
 #     "category_encoders==2.6.3",
 #     "joblib==1.4.0",
 #     "kaggle==1.7.4.5",
@@ -9,7 +10,7 @@
 #     "numpy==1.26.4",
 #     "pandas==2.2.1",
 #     "polars==1.30.0",
-#     "pyarrow==15.0.2",
+#     "pyarrow==20.0.0",
 #     "scikit-learn==1.4.1.post1",
 #     "scipy==1.13.0",
 #     "tqdm==4.66.2",
