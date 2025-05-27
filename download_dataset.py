@@ -7,6 +7,7 @@
 #     "kaggle==1.7.4.5",
 #     "loguru==0.7.2",
 #     "matplotlib==3.8.0",
+#     "matplotlib-inline==0.1.6",
 #     "numpy==1.26.4",
 #     "pandas==2.2.1",
 #     "polars==1.30.0",
