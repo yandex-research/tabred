@@ -1,9 +1,7 @@
 # Sberbank Housing preprocessing and splitting script
-import os
 import zipfile
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import polars as pl
 from loguru import logger
@@ -72,6 +70,8 @@ def main(original_data_path: str | None, plot_outliers: bool = False):
 
     # Plot outliers
     if plot_outliers:
+        import matplotlib.pyplot as plt
+
         fig = plt.figure()
         plt.hist(
             data.filter(pl.col("price_doc").lt(10_000_000))["price_doc"],
