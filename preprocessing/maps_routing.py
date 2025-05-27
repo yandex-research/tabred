@@ -15,19 +15,23 @@ def main(original_data_path: str | None):
     # >> Load and split into num, bin, cat
     # ================================================================
 
-    logger.info("Preprocessing maps routing dataset")
     if original_data_path is None:
+        logger.info("Loading data")
         import kaggle
 
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/maps-routing"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
-        kaggle.api.dataset_download_files(
-            "pcovkrd84mejm/maps-routing", path=TMP_DATA_PATH
-        )
-        unzip(TMP_DATA_PATH / "maps-routing.zip")
+        if (TMP_DATA_PATH / "maps_routing.parquet").exists():
+            logger.info(f"Skip downloading, found files at {TMP_DATA_PATH}")
+        else:
+            kaggle.api.dataset_download_files(
+                "pcovkrd84mejm/maps-routing", path=TMP_DATA_PATH
+            )
+            unzip(TMP_DATA_PATH / "maps-routing.zip")
     else:
         TMP_DATA_PATH = Path(original_data_path)
 
+    logger.info("Preprocessing maps routing dataset")
     # Store full_index to help with potential future experiments on large data
     data = pl.read_parquet(TMP_DATA_PATH / "maps_routing.parquet").with_row_index(
         name="index_in_full"

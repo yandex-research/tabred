@@ -1,4 +1,5 @@
 # Sberbank Housing preprocessing and splitting script
+import os
 import zipfile
 from pathlib import Path
 
@@ -13,15 +14,19 @@ from .util import PROJECT_DIR, download, save_dataset, unzip
 
 def main(original_data_path: str | None):
     if original_data_path is None:
+        logger.info("Loading data")
         import kaggle
 
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/sberbank-housing"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
 
-        kaggle.api.competition_download_files(
-            "sberbank-russian-housing-market", path=TMP_DATA_PATH
-        )
-        unzip(TMP_DATA_PATH / "sberbank-russian-housing-market.zip")
+        if (TMP_DATA_PATH / "train.csv.zip").exists():
+            logger.info(f"Skip downloading, found files at {TMP_DATA_PATH}")
+        else:
+            kaggle.api.competition_download_files(
+                "sberbank-russian-housing-market", path=TMP_DATA_PATH
+            )
+            unzip(TMP_DATA_PATH / "sberbank-russian-housing-market.zip")
     else:
         TMP_DATA_PATH = Path(original_data_path)
 
@@ -29,6 +34,7 @@ def main(original_data_path: str | None):
         "https://storage.googleapis.com/kaggle-forum-message-attachments/190521/6630/BAD_ADDRESS_FIX.xlsx",
         TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx",
     )
+    os.chmod(TMP_DATA_PATH / "BAD_ADDRESS_FIX.xlsx", 0o644)
 
     # ======================================================================================
     # >>> Preprocessing <<<

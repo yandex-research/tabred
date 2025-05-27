@@ -8,7 +8,7 @@
 #     "matplotlib==3.8.0",
 #     "numpy==1.26.4",
 #     "pandas==2.2.1",
-#     "polars==0.20.19",
+#     "polars==1.30.0",
 #     "pyarrow==15.0.2",
 #     "scikit-learn==1.4.1.post1",
 #     "scipy==1.13.0",

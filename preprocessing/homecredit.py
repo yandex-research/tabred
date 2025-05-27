@@ -11,7 +11,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from .util import PROJECT_DIR, save_dataset, unzip
 
 
-def set_table_dtypes(df):
+def set_table_dtypes(df: pl.LazyFrame) -> pl.LazyFrame:
     "set dtypes to optimize data size"
 
     for col in df.columns:
@@ -23,8 +23,8 @@ def set_table_dtypes(df):
     # Type downcasting
     int_types = [pl.Int8, pl.Int16, pl.Int32, pl.Int64]
     float_types = [pl.Float32, pl.Float64]
-    table_min = df.select(pl.col(df.columns).min()).collect(streaming=True)
-    table_max = df.select(pl.col(df.columns).max()).collect(streaming=True)
+    table_min = df.select(pl.col(df.columns).min()).collect(engine="streaming")
+    table_max = df.select(pl.col(df.columns).max()).collect(engine="streaming")
 
     for col, col_type in df.schema.items():
         c_min = table_min[col].item()
@@ -114,20 +114,24 @@ def aggregate_features(df: pl.LazyFrame):
 
 
 def main(original_data_path: str | None):
-    logger.info("Preprocessing homecredit-default-stability data")
     if original_data_path is None:
+        logger.info("Loading data")
         import kaggle
 
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/homecredit-default"
         DATA_FILES_PATH = TMP_DATA_PATH / "parquet_files/train"
-        TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
-        kaggle.api.competition_download_files(
-            "home-credit-credit-risk-model-stability", path=TMP_DATA_PATH
-        )
-        unzip(TMP_DATA_PATH / "home-credit-credit-risk-model-stability.zip")
+        if DATA_FILES_PATH.exists():
+            logger.info(f"Skip downloading, found files at {DATA_FILES_PATH}")
+        else:
+            TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
+            kaggle.api.competition_download_files(
+                "home-credit-credit-risk-model-stability", path=TMP_DATA_PATH
+            )
+            unzip(TMP_DATA_PATH / "home-credit-credit-risk-model-stability.zip")
     else:
         DATA_FILES_PATH = Path(original_data_path)
 
+    logger.info("Preprocessing homecredit-default-stability data")
     # ================================================================
     # >> Load data aggregate and join
     # ================================================================

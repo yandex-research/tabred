@@ -11,14 +11,18 @@ from .util import PROJECT_DIR, save_dataset, unzip
 
 def main(original_data_path: str | None):
     if original_data_path is None:
+        logger.info("Loading data")
         import kaggle
 
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/ecom-offers"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
-        kaggle.api.competition_download_files(
-            "acquire-valued-shoppers-challenge", path=TMP_DATA_PATH
-        )
-        unzip(TMP_DATA_PATH / "acquire-valued-shoppers-challenge.zip")
+        if (TMP_DATA_PATH / "trainHistory.csv.gz").exists():
+            logger.info(f"Skip downloading, found files at {TMP_DATA_PATH}")
+        else:
+            kaggle.api.competition_download_files(
+                "acquire-valued-shoppers-challenge", path=TMP_DATA_PATH
+            )
+            unzip(TMP_DATA_PATH / "acquire-valued-shoppers-challenge.zip")
     else:
         TMP_DATA_PATH = Path(original_data_path)
 
@@ -28,13 +32,17 @@ def main(original_data_path: str | None):
 
     logger.info("Preprocessing ecom offers dataset")
 
-    data_offers = pl.read_csv(gzip.open(TMP_DATA_PATH / "offers.csv.gz").read())
-    data_train_history = pl.read_csv(
-        gzip.open(TMP_DATA_PATH / "trainHistory.csv.gz").read()
+    data_offers = pl.scan_csv(
+        TMP_DATA_PATH / "offers.csv.gz",
+        low_memory=True,
+        infer_schema_length=2000,
+    )
+    data_train_history = pl.scan_csv(
+        TMP_DATA_PATH / "trainHistory.csv.gz"
     ).with_columns(pl.col("offerdate").str.strptime(pl.Date))
-    data_transactions = pl.read_csv(
-        gzip.open(TMP_DATA_PATH / "transactions.csv.gz").read()
-    ).with_columns(pl.col("date").str.strptime(pl.Date))
+    data_transactions = pl.scan_csv(TMP_DATA_PATH / "transactions.csv.gz").with_columns(
+        pl.col("date").str.strptime(pl.Date)
+    )
 
     data_train_offer = (
         data_train_history.join(data_offers, on="offer")
@@ -114,6 +122,7 @@ def main(original_data_path: str | None):
     )
 
     data = data_transactions.group_by("id").agg(*exprs).sort(by="offerdate")
+    data = data.collect()
 
     X_num_data = data.select(
         *[pl.col(c) for c in data.columns if c not in ["id", "target", "offerdate"]]

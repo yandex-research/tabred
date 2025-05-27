@@ -14,19 +14,23 @@ def main(original_data_path: str | None):
     # >> Load and split into num, bin, cat
     # ================================================================
 
-    logger.info("Preprocessing Weather data")
     if original_data_path is None:
+        logger.info("Loading data")
         import kaggle
 
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/weather"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
-        kaggle.api.dataset_download_files(
-            "pcovkrd84mejm/tabred-weather", path=TMP_DATA_PATH
-        )
-        unzip(TMP_DATA_PATH / "tabred-weather.zip")
+        if (TMP_DATA_PATH / "weather.parquet").exists():
+            logger.info(f"Skip downloading, found files at {TMP_DATA_PATH}")
+        else:
+            kaggle.api.dataset_download_files(
+                "pcovkrd84mejm/tabred-weather", path=TMP_DATA_PATH
+            )
+            unzip(TMP_DATA_PATH / "tabred-weather.zip")
     else:
         TMP_DATA_PATH = Path(original_data_path)
 
+    logger.info("Preprocessing Weather data")
     data = pl.read_parquet(TMP_DATA_PATH / "weather.parquet").with_row_index(
         name="index_in_full"
     )

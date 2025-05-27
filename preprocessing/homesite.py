@@ -12,26 +12,28 @@ from .util import PROJECT_DIR, save_dataset, unzip
 
 
 def main(original_data_path: str | None):
-    logger.info("Preprocessing homesite-insurance dataset")
-
     # Download and load dataset to memory
 
     if original_data_path is None:
+        logger.info("Loading data")
         import kaggle
 
         TMP_DATA_PATH = PROJECT_DIR / "preprocessing/tmp/homesite"
         TMP_DATA_PATH.mkdir(exist_ok=True, parents=True)
-        kaggle.api.competition_download_files(
-            "homesite-quote-conversion", path=TMP_DATA_PATH
-        )
-        unzip(TMP_DATA_PATH / "homesite-quote-conversion.zip")
+        if (TMP_DATA_PATH / "train.csv.zip").exists():
+            logger.info(f"Skip downloading, found files at {TMP_DATA_PATH}")
+        else:
+            kaggle.api.competition_download_files(
+                "homesite-quote-conversion", path=TMP_DATA_PATH
+            )
+            unzip(TMP_DATA_PATH / "homesite-quote-conversion.zip")
     else:
         TMP_DATA_PATH = Path(original_data_path)
 
     # ======================================================================================
     # >>> Split into num, cat, bin and add time features <<<
     # ======================================================================================
-
+    logger.info("Preprocessing homesite-insurance dataset")
     data = pl.read_csv(
         zipfile.ZipFile(TMP_DATA_PATH / "train.csv.zip").read("train.csv")
     )
