@@ -12,7 +12,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from .util import PROJECT_DIR, save_dataset, unzip
 
 
-def main(original_data_path: str | None):
+def main(original_data_path: str | None, plot_outliers: bool = False):
     if original_data_path is None:
         logger.info("Loading data")
         import kaggle
@@ -71,30 +71,31 @@ def main(original_data_path: str | None):
     ).update(data_fixup, on="id")
 
     # Plot outliers
-    fig = plt.figure()
-    plt.hist(
-        data.filter(pl.col("price_doc").lt(10_000_000))["price_doc"],
-        bins=100,
-        label="Prices <= 10kk",
-    )
-    plt.vlines(
-        [2_000_000],
-        ymin=[0],
-        ymax=[800],
-        color="red",
-        linewidth=2,
-        label="Outliers from discussions",
-    )
-    plt.vlines([3_000_000], ymin=[0], ymax=[450], color="red", linewidth=2)
-    plt.vlines([1_000_000], ymin=[0], ymax=[800], color="red", linewidth=2)
-    plt.legend()
-    plt.xticks(
-        range(1_000_000, 10_000_000, 1_000_000), [f"{i}kk" for i in range(1, 10)]
-    )
-    plt.xlabel("price_doc")
-    plt.ylabel("count")
-    plt.show()
-    fig.savefig("sberbank-outliers.png", dpi=300, bbox_inches="tight")
+    if plot_outliers:
+        fig = plt.figure()
+        plt.hist(
+            data.filter(pl.col("price_doc").lt(10_000_000))["price_doc"],
+            bins=100,
+            label="Prices <= 10kk",
+        )
+        plt.vlines(
+            [2_000_000],
+            ymin=[0],
+            ymax=[800],
+            color="red",
+            linewidth=2,
+            label="Outliers from discussions",
+        )
+        plt.vlines([3_000_000], ymin=[0], ymax=[450], color="red", linewidth=2)
+        plt.vlines([1_000_000], ymin=[0], ymax=[800], color="red", linewidth=2)
+        plt.legend()
+        plt.xticks(
+            range(1_000_000, 10_000_000, 1_000_000), [f"{i}kk" for i in range(1, 10)]
+        )
+        plt.xlabel("price_doc")
+        plt.ylabel("count")
+        plt.show()
+        fig.savefig("sberbank-outliers.png", dpi=300, bbox_inches="tight")
 
     # Filtering errors in *_sq features
     data = data.filter(
