@@ -35,8 +35,8 @@ DATASET_TO_COMMAND = {
     "cooking-time": download_cooking,
     "delivery-eta": download_delivery,
     "ecom-offers": download_ecom,
-    "homecredit": download_homecredit,
-    "homesite": download_homesite,
+    "homecredit-default": download_homecredit,
+    "homesite-insurance": download_homesite,
     "maps-routing": download_maps_routing,
     "sberbank-housing": download_sberbank_housing,
     "weather": download_weather,
@@ -45,8 +45,10 @@ DATASET_TO_COMMAND = {
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("dataset", type=str)
-    parser.add_argument("--original-path", type=str, required=False)
+    parser.add_argument("dataset", type=str, help="Name of the TabReD dataset.")
+    parser.add_argument(
+        "--original-path", type=str, required=False, help="Path to downloaded files."
+    )
 
     args = parser.parse_args()
     assert args.dataset in DATASET_TO_COMMAND.keys()

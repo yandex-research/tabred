@@ -129,7 +129,7 @@ def main(original_data_path: str | None):
             )
             unzip(TMP_DATA_PATH / "home-credit-credit-risk-model-stability.zip")
     else:
-        DATA_FILES_PATH = Path(original_data_path)
+        DATA_FILES_PATH = Path(original_data_path) / "parquet_files/train"
 
     logger.info("Preprocessing homecredit-default-stability data")
     # ================================================================
