@@ -47,7 +47,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("dataset", type=str, help="Name of the TabReD dataset.")
     parser.add_argument(
-        "--original-path", type=str, required=False, help="Path to downloaded files."
+        "--original-path",
+        type=str,
+        required=False,
+        help="Path to the raw downloaded files.",
     )
 
     args = parser.parse_args()
