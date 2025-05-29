@@ -5,6 +5,15 @@
 # ]
 # ///
 
+"""
+Downloads only the TabReD splits used in the paper. Not the full datasets.
+
+```
+uv run download_tabred.py
+```
+"""
+
+import kaggle
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 

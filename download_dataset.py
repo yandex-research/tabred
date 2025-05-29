@@ -20,6 +20,10 @@
 # ]
 # ///
 
+"""
+Downloads and preprocess a specific TabReD dataset. The full dataset will be downloaded.
+"""
+
 import argparse
 
 from preprocessing.cooking_time import main as download_cooking

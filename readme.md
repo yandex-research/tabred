@@ -4,6 +4,22 @@
 &nbsp; :books: [Other tabular DL projects](https://github.com/yandex-research/rtdl)
 
 > [!IMPORTANT]
+> **[New] Easies download is out!**  
+> 
+> If you are only interested in TabReD splits used in the paper.
+> 1. You need a kaggle account, put your API key to `~/.kaggle/kaggle.json`
+> 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions
+> 3. Run `uv run download_tabred.py`. This will download `data.tar` (~4GB).
+> 4. Run `tar -xf data.tar` to unpack.
+>
+> If you are interested in a particular dataset.
+> 1. You need a kaggle account, put your API key to `~/.kaggle/kaggle.json`
+> 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions
+> 3. Run `mkdir data`
+> 4. Run `uv run --python 3.12 download_dataset.py [dataset_name]`
+> 5. This will download a full dataset to `preprocessing/tmp/dataset_name` and TabReD splits to `data/dataset_name`.
+
+> [!IMPORTANT]
 > Check out the new tabular DL model: [TabM](https://github.com/yandex-research/tabm) (SoTA on TabReD)
 
 *TL;DR: TabReD is a new benchmark of industry-grade tabular datasets with temporally evolving and feature-rich real-world datasets*
@@ -19,7 +35,7 @@ competitions and have a Kaggle account.
 Here is the initial rendition of TabReD with links to datasets and basic metadata:
 
 | Dataset            | Features | Task           | Instances Used | Instances Available | Link                                                                                       |
-|--------------------|----------|----------------|----------------|---------------------|--------------------------------------------------------------------------------------------|
+| ------------------ | -------- | -------------- | -------------- | ------------------- | ------------------------------------------------------------------------------------------ |
 | Homesite Insurance | 299      | Classification | 260,753        | -                   | [Competition](https://www.kaggle.com/competitions/homesite-quote-conversion)               |
 | Ecom Offers        | 119      | Classification | 160,057        | -                   | [Competition](https://www.kaggle.com/c/acquire-valued-shoppers-challenge)                  |
 | Homecredit Default | 696      | Classification | 381,664        | 1,526,659           | [Competition](https://www.kaggle.com/competitions/home-credit-credit-risk-model-stability) |
