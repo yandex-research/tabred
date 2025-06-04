@@ -10,13 +10,13 @@
 > 
 > If you are only interested in **TabReD splits used in the paper**.
 > 1. You need a kaggle account, put your API key to `~/.kaggle/kaggle.json`
-> 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions
-> 3. Run `uv run download_tabred.py`. This will download `data.tar` (~4GB).
+> 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions. Close the tab.
+> 3. Run `uv run download_tabred.py`. This will download `data.tar` (~4GB) from the Kaggle notebook to your machine.
 > 4. Run `tar -xf data.tar` to unpack.
 >
 > If you are interested in a **particular dataset including full data** (~50GB for all dataset).
 > 1. You need a kaggle account, put your API key to `~/.kaggle/kaggle.json`
-> 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions
+> 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions.  Close the tab.
 > 3. Create `data` folder. `mkdir data`
 > 4. Run `uv run --python 3.12 download_dataset.py [dataset_name]`
 > 5. This will download a full dataset to `preprocessing/tmp/dataset_name` and TabReD splits to `data/dataset_name`.
