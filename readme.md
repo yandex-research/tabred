@@ -4,18 +4,20 @@
 &nbsp; :books: [Other tabular DL projects](https://github.com/yandex-research/rtdl)
 
 > [!IMPORTANT]
-> **[New] Easies download is out!**  
+> **[\*New\*] Easier download is out!**  
+>
+> Note: Accepting the rules of the competitions is an important step.
 > 
-> If you are only interested in TabReD splits used in the paper.
+> If you are only interested in **TabReD splits used in the paper**.
 > 1. You need a kaggle account, put your API key to `~/.kaggle/kaggle.json`
 > 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions
 > 3. Run `uv run download_tabred.py`. This will download `data.tar` (~4GB).
 > 4. Run `tar -xf data.tar` to unpack.
 >
-> If you are interested in a particular dataset.
+> If you are interested in a **particular dataset including full data** (~50GB for all dataset).
 > 1. You need a kaggle account, put your API key to `~/.kaggle/kaggle.json`
 > 2. Open [this notebook](https://www.kaggle.com/code/rototo/get-tabred/notebook), click "Copy & Edit" and accept the rules of the competitions
-> 3. Run `mkdir data`
+> 3. Create `data` folder. `mkdir data`
 > 4. Run `uv run --python 3.12 download_dataset.py [dataset_name]`
 > 5. This will download a full dataset to `preprocessing/tmp/dataset_name` and TabReD splits to `data/dataset_name`.
 
@@ -40,10 +42,10 @@ Here is the initial rendition of TabReD with links to datasets and basic metadat
 | Ecom Offers        | 119      | Classification | 160,057        | -                   | [Competition](https://www.kaggle.com/c/acquire-valued-shoppers-challenge)                  |
 | Homecredit Default | 696      | Classification | 381,664        | 1,526,659           | [Competition](https://www.kaggle.com/competitions/home-credit-credit-risk-model-stability) |
 | Sberbank Housing   | 392      | Regression     | 28,321         | -                   | [Competition](https://www.kaggle.com/competitions/sberbank-russian-housing-market)         |
-| Cooking Time       | 192      | Regression     | 319,986        | 12,799,642          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/cooking-time)                      |
-| Delivery ETA       | 223      | Regression     | 416,451        | 17,044,043          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/delivery-eta)                      |
-| Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/maps-routing)                      |
-| Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/tabred-weather)                    |
+| Cooking Time       | 192      | Regression     | 319,986        | 12,799,642          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred?select=cooking-time)            |
+| Delivery ETA       | 223      | Regression     | 416,451        | 17,044,043          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred?select=delivery-eta)            |
+| Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred?select=maps-routing)            |
+| Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred?select=weather)                 |
 
 ## Repository Structure
 
