@@ -61,6 +61,7 @@ def main(original_data_path: str | None, plot_outliers: bool = False):
 
     data_fixup = pl.read_excel(
         "https://storage.googleapis.com/kaggle-forum-message-attachments/190521/6630/BAD_ADDRESS_FIX.xlsx"
+        engine='xlsx2csv',
     ).fill_null("NA")
 
     data = data.filter(

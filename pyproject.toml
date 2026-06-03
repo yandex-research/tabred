@@ -1,5 +1,67 @@
-# this makes pip install obide pep517 (needed to eliminate warning during project install)
 [build-system]
-requires = ["setuptools>=69.2.0"]
+requires = ["uv_build>=0.11.16,<0.12.0"]
+build-backend = "uv_build"
 
-# TODO configure linters
+[project]
+name = "tabred"
+version = "0.1.1"
+description = "TabReD: Benchmark of industry-grade tabular datasets"
+readme = "README.md"
+requires-python = ">=3.12,<4"
+license = { file = "LICENSE" }
+authors = [{ name = "Ivan Rubachev" }]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "cyclopts>=4.18.0,<5",
+    "kaggle>=2.2,<3",
+    "kagglesdk>=0.1.30,<0.2",
+    "requests>=2.34.2,<3",
+    "rich>=15.0.0,<16",
+]
+
+[project.urls]
+Code = "https://github.com/yandex-research/tabred"
+Documentation = "https://github.com/yandex-research/tabred/tree/main/README.md"
+
+[project.scripts]
+tabred = "tabred.cli:main"
+
+[dependency-groups]
+data = [
+    # dependencies in this group are intentionally
+    # strict for reproducible dataset artifacts.
+    "numpy==2.4.6",
+    "polars>=1.41,<2",
+    "pyarrow==24.0.0",
+    "scikit-learn==1.8.0",
+]
+dev = [
+    "ipython>=9.13.0,<10",
+    "pytest>=8.0.0,<9",
+    "ruff>=0.15.0,<0.16",
+]
+
+[tool.pyright]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    "local",
+]
+venv = ".venv"
+venvPath = "."
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+extend-select = ["ARG", "RUF", "UP", "E501", "E731", "I"]
+
+
+[tool.ruff.format]
+quote-style = "single"
