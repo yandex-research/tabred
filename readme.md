@@ -1,58 +1,95 @@
-# TabReD: Analyzing Pitfalls and Filling the Gaps in Tabular Deep Learning Benchmarks
+<p align="center">
+  <img src="assets/about_tabred.png" alt="TabReD overview" width="85%">
+</p>
 
-:scroll: [arXiv](https://arxiv.org/abs/2406.19380)
-&nbsp; :books: [Other tabular DL projects](https://github.com/yandex-research/rtdl)
+<p align="center">
+  <b>TabReD: Analyzing Pitfalls and Filling the Gaps in Tabular Deep Learning Benchmarks</b>
+</p>
 
-> [!IMPORTANT]
-> Check out the new tabular DL model: [TabM](https://github.com/yandex-research/tabm) (SoTA on TabReD)
+TabReD is a collection of eight industry-grade tabular datasets designed to evaluate machine learning methods under more realistic conditions: temporal distribution shift, rich feature sets from feature engineering pipelines, closer aligned with some real world applications of tabular machine learning.
 
-*TL;DR: TabReD is a new benchmark of industry-grade tabular datasets with temporally evolving and feature-rich real-world datasets*
+ :scroll: [arXiv](https://arxiv.org/abs/2406.19380) :books: [Other tabular DL projects](https://github.com/yandex-research/rtdl)
 
-> Advances in machine learning research drive progress in real-world applications. To ensure this progress, it is important to understand the potential pitfalls on the way from a novel method's success on academic benchmarks to its practical deployment. In this work, we analyze existing tabular benchmarks and find two common characteristics of tabular data in typical industrial applications that are underrepresented in the datasets usually used for evaluation in the literature. First, in real-world deployment scenarios, distribution of data often changes over time. To account for this distribution drift, time-based train/test splits should be used in evaluation. However, popular tabular datasets often lack timestamp metadata to enable such evaluation. Second, a considerable portion of datasets in production settings stem from extensive data acquisition and feature engineering pipelines. This can have an impact on the absolute and relative number of predictive, uninformative, and correlated features compared to academic datasets. In this work, we aim to understand how recent research advances in tabular deep learning transfer to these underrepresented conditions. To this end, we introduce TabReD -- a collection of eight industry-grade tabular datasets. We reassess a large number of tabular ML models and techniques on TabReD. We demonstrate that evaluation on time-based data splits leads to different methods ranking, compared to evaluation on random splits, which are common in current benchmarks. Furthermore, simple MLP-like architectures and GBDT show the best results on the TabReD datasets, while other methods are less effective in the new setting. 
+> [!NOTE]
+> **Download preprocessed TabReD datasets with one command**
+>
+> ```bash
+> uvx tabred download all
+> # or individual datasets with
+> uvx tabred download cooking-time weather
+> ```
+>
+> *You need a Kaggle account and an API token at `~/.kaggle/kaggle.json` for this to work.*
 
-## TabReD datasets 
 
-You can download and preprocess TabReD datasets by running scripts from the
-[`./preprocessing`](./preprocessing) directory. For Kaggle datasets you shoul enroll the respective
-competitions and have a Kaggle account.
 
-Here is the initial rendition of TabReD with links to datasets and basic metadata:
 
-| Dataset            | Features | Task           | Instances Used | Instances Available | Link                                                                                       |
-|--------------------|----------|----------------|----------------|---------------------|--------------------------------------------------------------------------------------------|
+## Datasets
+
+| Dataset            | Features | Task           | Instances Used | Instances Available | Source                                                                                     |
+| ------------------ | -------- | -------------- | -------------- | ------------------- | ------------------------------------------------------------------------------------------ |
 | Homesite Insurance | 299      | Classification | 260,753        | -                   | [Competition](https://www.kaggle.com/competitions/homesite-quote-conversion)               |
 | Ecom Offers        | 119      | Classification | 160,057        | -                   | [Competition](https://www.kaggle.com/c/acquire-valued-shoppers-challenge)                  |
 | Homecredit Default | 696      | Classification | 381,664        | 1,526,659           | [Competition](https://www.kaggle.com/competitions/home-credit-credit-risk-model-stability) |
 | Sberbank Housing   | 392      | Regression     | 28,321         | -                   | [Competition](https://www.kaggle.com/competitions/sberbank-russian-housing-market)         |
-| Cooking Time       | 192      | Regression     | 319,986        | 12,799,642          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/cooking-time)                      |
-| Delivery ETA       | 223      | Regression     | 416,451        | 17,044,043          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/delivery-eta)                      |
-| Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/maps-routing)                      |
-| Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/pcovkrd84mejm/tabred-weather)                    |
+| Cooking Time       | 192      | Regression     | 319,986        | 12,799,642          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
+| Delivery ETA       | 223      | Regression     | 416,451        | 17,044,043          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
+| Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
+| Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
+## Preprocessed data format
 
-## Repository Structure
+The downloader unpacks each dataset into its own directory:
 
-- [`./preprocessing`](./preprocessing) directory contains preprocessing scripts for all the datasets
-- [`./exp`](./exp) all exeperiment logs are in this folder
-- [`./bin`](./bin) scripts for launching the experiments
-- [`./lib`](./lib) library, dataloading, utilities 
+```
+data/<dataset>/
+├── info.json
+├── x_num.npy
+├── x_cat.npy          # when present
+├── x_bin.npy          # when present
+├── x_meta.npy
+├── y.npy
+└── splits/
+    ├── default/
+    │   ├── train.npy
+    │   ├── val.npy
+    │   └── test.npy
+    ├── random-{0,1,2}/
+    │   ├── train.npy
+    │   ├── val.npy
+    │   └── test.npy
+    └── sliding-window-{0,1,2}/
+        ├── train.npy
+        ├── val.npy
+        └── test.npy
+```
 
-## Environment
+The `x_*.npy` files contain feature matrices, `y.npy` contains targets, and
+`info.json` contains task metadata. Split files contain row indices into these
+arrays. The `default` split is the main split from the TabReD paper; the random
+and sliding-window splits are provided for split-strategy studies.
 
-There are two environments: one for local development on machines without gpus -
-`tabred-env-local.yaml`, another for the machines with GPUs `tabred-env.yaml`.
+## Repository structure
 
-To create the environment with all the dependencies run `micromamba create -f` with the env file of
-choice (for example `micromamba create -f tabred-env.yaml` on a server with GPUs).
+- `src/tabred`: downloader package and CLI.
+- `paper`: code for reproducing the paper
 
-## Example
+## Rebuilding datasets from raw sources
 
-To reproduce results for the MLP on the maps-routing dataset.
+Most users should use the preprocessed downloader above. The preprocessing pipeline is kept in this repository for reproducibility and maintenance, but it is not the recommended way to obtain the benchmark data.
 
-1. Create an environment
-2. Create dataset (run preprocessing script)
-3. Run `export CUDA_VISIBLE_DEVICES=0` (or whatever device you like)
-4. Run `python bin/go.py exp/mlp/maps-routing/tuning.toml --force` (force, deletes the existing outputs)
+> The cleaned-up dataset preparation scripts will be published in a few days (@puhsu 10.07.26). For now consult the previous commits and the preprocessing folder there.
 
-## Dataset Details
+## Citation
 
-There is also a [datasheet](./datasheet.md) for the benchmark.
+If you use TabReD, please cite:
+
+```bibtex
+@inproceedings{
+ rubachev2025tabred,
+ title={TabReD: Analyzing Pitfalls and Filling the Gaps in Tabular Deep Learning Benchmarks},
+ author={Ivan Rubachev and Nikolay Kartashev and Yury Gorishniy and Artem Babenko},
+ booktitle={The Thirteenth International Conference on Learning Representations},
+ year={2025},
+ url={https://openreview.net/forum?id=L14sqcrUC3}
+}
+```
