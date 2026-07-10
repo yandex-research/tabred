@@ -8,10 +8,8 @@ from concurrent.futures import FIRST_EXCEPTION, ThreadPoolExecutor, wait
 from pathlib import Path
 from threading import Event
 
-import kaggle
-
-import kagglesdk
 import requests
+from kaggle.api.kaggle_api_extended import KaggleApi
 from kagglesdk.competitions.types.competition_api_service import (
     ApiDownloadDataFilesRequest,
     ApiListCompetitionsRequest,
@@ -57,6 +55,12 @@ console = Console(
         }
     ),
 )
+
+
+def _kaggle_api() -> KaggleApi:
+    api = KaggleApi()
+    api.authenticate()
+    return api
 
 
 def download_preprocessed_data(
@@ -117,6 +121,7 @@ def download_kaggle_data(
     if not data:
         return {}
 
+    api = _kaggle_api()
     stop = Event()
     workers = max(1, min(max_workers, len(data)))
 
@@ -133,7 +138,7 @@ def download_kaggle_data(
         task_ids = {name: progress.add_task(ref.name, total=None) for name, ref in data.items()}
 
         def run(name: str) -> Path:
-            return _download(data[name], dst / name, force, progress, task_ids[name], stop)
+            return _download(api, data[name], dst / name, force, progress, task_ids[name], stop)
 
         with ThreadPoolExecutor(max_workers=workers) as pool:
             futures = {pool.submit(run, name): name for name in data}
@@ -159,16 +164,15 @@ def download_kaggle_data(
 
 
 def require_competition_access(names: Iterable[str]) -> None:
-    api = kaggle.KaggleApi()
-    api.authenticate()
 
     slugs = competition_slugs(names)
     if not slugs:
         return
 
+    api = _kaggle_api()
     with console.status('Checking Kaggle competition access'):
         with ThreadPoolExecutor(max_workers=min(8, len(slugs))) as pool:
-            access = dict(zip(slugs, pool.map(_entered_competition, slugs), strict=True))
+            access = dict(zip(slugs, pool.map(lambda slug: _entered_competition(api, slug), slugs), strict=True))
 
     missing = [slug for slug, ok in access.items() if not ok]
     if not missing:
@@ -190,14 +194,14 @@ def require_competition_access(names: Iterable[str]) -> None:
     raise SystemExit(0)
 
 
-def _entered_competition(slug: str) -> bool:
+def _entered_competition(api: KaggleApi, slug: str) -> bool:
     request = ApiListCompetitionsRequest()
     request.group = CompetitionListTab.COMPETITION_LIST_TAB_ENTERED
     request.search = slug
     request.page = 1
     request.page_size = 5
 
-    with kagglesdk.KaggleClient() as client:
+    with api.build_kaggle_client() as client:
         response = client.competitions.competition_api_client.list_competitions(request)
 
     for competition in response.competitions or []:
@@ -214,6 +218,7 @@ def _entered_competition(slug: str) -> bool:
 
 
 def _download(
+    api: KaggleApi,
     file: KaggleRef,
     dst: Path,
     force: bool,
@@ -237,7 +242,7 @@ def _download(
         progress.remove_task(task_id)
         return out
 
-    with kagglesdk.KaggleClient() as client:
+    with api.build_kaggle_client() as client:
         if file.kind == 'dataset':
             owner, slug = file.ref.split('/', 1)
             request = ApiDownloadDatasetRequest()
