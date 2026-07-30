@@ -10,19 +10,33 @@ TabReD is a collection of eight industry-grade tabular datasets designed to eval
 
  :scroll: [arXiv](https://arxiv.org/abs/2406.19380) :books: [Other tabular DL projects](https://github.com/yandex-research/rtdl)
 
-> [!NOTE]
-> **Download preprocessed TabReD datasets with one command**
->
-> ```bash
-> uvx tabred download all
-> # or individual datasets with
-> uvx tabred download cooking-time weather
-> ```
->
-> *You need a Kaggle account and an API token at `~/.kaggle/kaggle.json` for this to work.*
+## Download TabReD
 
+To download TabReD datasets, follow the steps below.
 
+**Step 1.** Install [uv](https://docs.astral.sh/uv).
 
+**Step 2.** Create or log in to your existing Kaggle account and complete the authentication process as described [here](https://github.com/Kaggle/kaggle-cli/blob/main/docs/README.md).
+
+**Step 3.** 
+
+To download all TabReD datasets to the default location, run:
+
+```
+uvx tabred download
+```
+
+To download all TabReD datasets to a custom location, run:
+
+```
+uvx tabred download --output-path path/to/directory
+```
+
+To download only some of the TabReD datasets (for example, the Cooking Time and Weather datasets), run:
+
+```
+uvx tabred download cooking-time weather
+```
 
 ## Datasets
 
@@ -36,6 +50,7 @@ TabReD is a collection of eight industry-grade tabular datasets designed to eval
 | Delivery ETA       | 223      | Regression     | 416,451        | 17,044,043          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
 | Maps Routing       | 986      | Regression     | 340,981        | 13,639,272          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
 | Weather            | 103      | Regression     | 423,795        | 16,951,828          | [Dataset](https://www.kaggle.com/datasets/irubachev/tabred)                                |
+
 ## Preprocessed data format
 
 The downloader unpacks each dataset into its own directory:
